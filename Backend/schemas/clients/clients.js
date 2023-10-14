@@ -2,6 +2,8 @@ const clientPostSchema = {
     "$id": "clientPostSchema",
     "type": 'object',
     "properties": {
+      "name": { "type": "string" },
+      "email": { "type": "string", "format": "email" },
       "phone": { "type": 'string' },
       "description": { "type": 'string' },
     },
@@ -13,10 +15,12 @@ const clientPostSchema = {
     "type": "object",
     "properties": {
       "id": { "type": "integer" },
+      "name": { "type": "string" },
+      "email": { "type": "string", "format": "email" },
       "phone": { "type": "string" },
       "description": { "type": "string" },
     },
-    "required": ["id","phone", "description"]
+    "required": ["id", "name", "email", "phone", "description"]
   }
   
   const clientsResponseSchema = {

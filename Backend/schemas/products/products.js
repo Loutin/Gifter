@@ -6,9 +6,9 @@ const productPostSchema = {
     "type": { "type": 'string' },
     "description": { "type": 'string' },
     "price": { "type": 'number' },
-    "IDcompany": { "type": 'number' },
+    "id_business": { "type": 'number' },
   },
-  "required": ['name', 'type', 'description', 'price', 'IDcompany'],
+  "required": ['name', 'type', 'description', 'price', 'id_business'],
 };
 
 const productResponseSchema = {
@@ -20,9 +20,9 @@ const productResponseSchema = {
     "type": { "type": 'string' },
     "description": { "type": 'string' },
     "price": { "type": 'number' },
-    "IDcompany": { "type": 'number' },
+    "id_business": { "type": 'number' },
   },
-  "required": ['id', 'name', 'type', 'description', 'price', 'IDcompany'],
+  "required": ['id', 'name', 'type', 'description', 'price', 'id_business'],
 }
 
 const productsResponseSchema = {

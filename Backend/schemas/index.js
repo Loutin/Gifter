@@ -1,8 +1,8 @@
-import businessesSchemas from "./businesses/businesses";
-import clientsSchemas from "./clients/clients";
-import distributorsSchemas from "./distributors/distributors";
-import productsSchemas from "./products/products";
-import ordersSchemas from "./orders/orders";
+import businessesSchemas from "./businesses/businesses.js";
+import clientsSchemas from "./clients/clients.js";
+import distributorsSchemas from "./distributors/distributors.js";
+import productsSchemas from "./products/products.js";
+import ordersSchemas from "./orders/orders.js";
 
 const generic204ResponseSchema = {
   $id: "generic204ResponseSchema",
