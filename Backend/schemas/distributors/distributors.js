@@ -21,7 +21,7 @@ const distributorPostSchema = {
       "availability": { "type": "string" },
       "phone": { "type": "string" },
     },
-    "required": ["id", "name", "email", "availability", "phone"]
+    "required": ["id", "availability", "phone"]
   }
   
   const distributorsResponseSchema = {
@@ -30,9 +30,21 @@ const distributorPostSchema = {
     "items": { "$ref": "distributorResponseSchema" }
   }
   
+  const distributorPutSchema = {
+    "$id": "distributorPutSchema",
+    "type": 'object',
+    "properties": {
+      "id": { "type": "integer" },
+      "name": { "type": 'string' },
+      "email": { "type": 'string', "format": "email" },
+      "password": { "type": 'string' },
+      "availability": { "type": 'string' },
+      "phone": { "type": 'string' },
+    },
+  }
   
   const distributorsSchemas = {
-    distributorPostSchema, distributorResponseSchema, distributorsResponseSchema,
+    distributorPostSchema, distributorResponseSchema, distributorsResponseSchema, distributorPutSchema
   }
   
   export default distributorsSchemas;

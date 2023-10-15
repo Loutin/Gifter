@@ -6,8 +6,9 @@ const clientPostSchema = {
       "email": { "type": "string", "format": "email" },
       "phone": { "type": 'string' },
       "description": { "type": 'string' },
+      "password": { "type": 'string' },
     },
-    "required": ['description', 'phone'],
+    "required": ['name', 'email', 'password', 'phone', 'description'],
   };
   
   const clientResponseSchema = {
@@ -20,7 +21,7 @@ const clientPostSchema = {
       "phone": { "type": "string" },
       "description": { "type": "string" },
     },
-    "required": ["id", "name", "email", "phone", "description"]
+    "required": ["id", "phone", "description"]
   }
   
   const clientsResponseSchema = {
@@ -29,9 +30,21 @@ const clientPostSchema = {
     "items": { "$ref": "clientResponseSchema" }
   }
   
+  const clientPutSchema = {
+    "$id": "clientPutSchema",
+    "type": 'object',
+    "properties": {
+      "id": { "type": "integer" },
+      "name": { "type": "string" },
+      "email": { "type": "string", "format": "email" },
+      "phone": { "type": "string" },
+      "description": { "type": "string" },
+      "password": { "type": "string" },
+    }
+  }
   
   const clientsSchemas = {
-    clientPostSchema, clientResponseSchema, clientsResponseSchema,
+    clientPostSchema, clientResponseSchema, clientsResponseSchema, clientPutSchema
   }
   
   export default clientsSchemas;

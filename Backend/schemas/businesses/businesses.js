@@ -21,7 +21,7 @@ const businessResponseSchema = {
     "address": { "type": "string" },
     "phone": { "type": "string" },
   },
-  "required": ["id", "name", "email", "address", "phone"]
+  "required": ["id", "address", "phone"]
 }
 
 const businessesResponseSchema = {
@@ -30,9 +30,22 @@ const businessesResponseSchema = {
   "items": { "$ref": "businessResponseSchema" }
 }
 
+const businessPutSchema = {
+  "$id": "businessPutSchema",
+  "type": 'object',
+  "properties": {
+    "id": { "type": "integer" },
+    "name": { "type": 'string' },
+    "email": { "type": 'string', "format": "email" },
+    "password": { "type": 'string' },
+    "address": { "type": 'string' },
+    "phone": { "type": 'string' },
+  },
+}
+
 
 const businessesSchemas = {
-  businessPostSchema, businessResponseSchema, businessesResponseSchema,
+  businessPostSchema, businessResponseSchema, businessesResponseSchema, businessPutSchema
 }
 
 export default businessesSchemas;

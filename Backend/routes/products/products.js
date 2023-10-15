@@ -11,22 +11,26 @@ export default async function (fastify, opts) {
       description: 'Ok. Successful product add.',
       content: {
           "application/json": {
-            "schema": { $ref: "productPostSchema" }
+            "schema": { $ref: "productResponseSchema" }
           }
         }
       }
     },
+    body: {
+      "$ref": 'productPostSchema'
+    }
   }
 
-fastify.post("/", {
-  schema: postRouteSchema,
-  handler: async function (request, reply) {
-    const { name, type, description, price, id_business } = request.body
+  fastify.post("/", {
+    schema: postRouteSchema,
+    handler: async function (request, reply) {
+      const { name, type, description, price, id_business } = request.body
 
-    const product = await pool.query("INSERT INTO products (name, type, description, price, id_business) VALUES ($1, $2, $3, $4, $5) RETURNING *", [name, type, description, price, id_business])
+      const product = (await pool.query("INSERT INTO products (name, type, description, price, id_business) VALUES ($1, $2, $3, $4, $5) RETURNING *", [name, type, description, price, id_business])).rows[0]
 
-    return product.rows[0]
-  }
+      reply.code(201)
+      return product
+    }
   })
 
   const getProductsRouteSchema = {

@@ -3,6 +3,38 @@ import pool from "../../db/db.js"
 
 export default async function (fastify, opts) {
 
+  const postRouteSchema = {
+    summary: 'Add a business',
+    tags: ['businesses'],
+    response: {
+    201: {
+      description: 'Ok. Successful business add.',
+      content: {
+          "application/json": {
+            "schema": { $ref: "businessResponseSchema" }
+          }
+        }
+      }
+    },
+    body: {
+      "$ref": 'businessPostSchema'
+    }
+  }
+
+  fastify.post("/", {
+    schema: postRouteSchema,
+    handler: async function (request, reply) {
+      const { name, phone, address, email, password } = request.body
+
+      const user = (await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [name, email, password])).rows[0]
+
+      const business = (await pool.query("INSERT INTO businesses (id, phone, address) VALUES ($1, $2, $3) RETURNING *", [user.id, phone, address])).rows[0]
+
+      reply.code(201)
+      return business
+    }
+  })
+
   const getBusinessesRouteSchema = {
     "$id": "businessesResponsesSchema",
     summary: "Get all the businesses",
