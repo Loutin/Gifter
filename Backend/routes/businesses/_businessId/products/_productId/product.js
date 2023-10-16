@@ -1,4 +1,4 @@
-import pool from "../../../db/db.js"
+import pool from "../../../../../db/db.js"
 
 export default async function (fastify, opts) {
 
@@ -25,7 +25,9 @@ export default async function (fastify, opts) {
     handler: async (request, reply) => {
       const productId = request.params.productId
 
-      const product = (await pool.query("SELECT * FROM products WHERE id = $1", [productId])).rows[0]
+      const businessId = request.params.businessId
+
+      const product = (await pool.query("SELECT * FROM products WHERE id = $1 AND id_business = $2", [productId, businessId])).rows[0]
 
       if (!product) {
         reply.code(404)
@@ -54,8 +56,9 @@ export default async function (fastify, opts) {
     handler: async function (request, reply) {
       const { id, name, type, description, price, id_business } = request.body
       const productId = request.params.productId
+      const businessId = request.params.businessId
 
-      if (id !== Number.parseInt(productId)) {
+      if (id !== Number.parseInt(productId) || id_business !== Number.parseInt(businessId)) {
         reply.code(409)
         return
       }
@@ -82,14 +85,16 @@ export default async function (fastify, opts) {
     handler: async function (request, reply) {
       const productId = request.params.productId
 
-      const product = (await pool.query("SELECT * FROM products WHERE id = $1", [productId])).rows[0]
+      const businessId = request.params.businessId
+
+      const product = (await pool.query("SELECT * FROM products WHERE id = $1 AND id_business = $2", [productId, businessId])).rows[0]
 
       if (!product) {
         reply.code(404)
         return
       }
 
-      await pool.query("DELETE FROM products WHERE id = $1", [productId])
+      await pool.query("DELETE FROM products WHERE id = $1 AND id_business = $2", [productId, businessId])
 
       reply.code(204)
       return

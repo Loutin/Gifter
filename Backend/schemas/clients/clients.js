@@ -43,8 +43,20 @@ const clientPostSchema = {
     }
   }
   
+  const clientFavoriteProductsResponseSchema = {
+    "$id": 'clientFavoriteProductsResponseSchema',
+    "type": "array",
+    "items": { "$ref": "productResponseSchema" }
+  }
+
+  const clientFavoriteBusinessesResponseSchema = {
+    "$id": 'clientFavoriteBusinessesResponseSchema',
+    "type": "array",
+    "items": { "$ref": "businessResponseSchema" }
+  }
+
   const clientsSchemas = {
-    clientPostSchema, clientResponseSchema, clientsResponseSchema, clientPutSchema
+    clientPostSchema, clientResponseSchema, clientsResponseSchema, clientPutSchema, clientFavoriteProductsResponseSchema, clientFavoriteBusinessesResponseSchema
   }
   
   export default clientsSchemas;

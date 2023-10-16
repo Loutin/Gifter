@@ -5,7 +5,7 @@ test('Get all products, OK', async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/',
+    url: '/businesses/13/products/',
     method: 'GET'
   })
 
@@ -17,7 +17,7 @@ test('Get all products, not OK', async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/',
+    url: '/businesses/13/products/',
     method: 'GET'
   })
 
@@ -29,7 +29,7 @@ test("Get a product, OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/1',
+    url: '/businesses/13/products/8',
     method: 'GET'
   })
 
@@ -41,7 +41,7 @@ test("Get a product, not OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/1000',
+    url: '/businesses/13/products/80',
     method: 'GET'
   })
 
@@ -53,14 +53,14 @@ test("Create a product, OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/',
+    url: '/businesses/13/products',
     method: 'POST',
     payload: {
       name: 'test',
       type: 'test',
       description: 'test',
       price: 200,
-      id_business: 1
+      id_business: 13
     }
   })
 
@@ -72,7 +72,7 @@ test("Create a product, not OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/',
+    url: '/businesses/13/products',
     method: 'POST',
     payload: {
       names: 'test',
@@ -83,7 +83,7 @@ test("Create a product, not OK", async (t) => {
     }
   })
 
-  t.equal(response.statusCode, 400, 'Create a product, not OK. El código de respuesta es 400');
+  t.equal(response.statusCode, 409, 'Create a product, not OK. El código de respuesta es 409');
   t.end();
 })
 
@@ -91,15 +91,15 @@ test("Update a product, OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/1',
+    url: '/businesses/13/products/8',
     method: 'PUT',
     payload: {
-      id: 1,
+      id: 8,
       name: 'test',
       type: 'test',
       description: 'test',
       price: 200,
-      id_business: 1
+      id_business: 13
     }
   })
 
@@ -123,7 +123,7 @@ test("Update a product, not OK", async (t) => {
     }
   })
 
-  t.equal(response.statusCode, 209, 'Update a product, not OK. El código de respuesta es 209');
+  t.equal(response.statusCode, 409, 'Update a product, not OK. El código de respuesta es 409');
   t.end();
 })
 
@@ -131,7 +131,7 @@ test("Delete a product, OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/1',
+    url: '/businesses/13/products/8',
     method: 'DELETE'
   })
 
@@ -143,7 +143,7 @@ test("Delete a product, not OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/1000',
+    url: '/businesses/13/products/80',
     method: 'DELETE'
   })
 

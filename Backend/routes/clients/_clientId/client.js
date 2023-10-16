@@ -109,4 +109,180 @@ export default async function (fastify, opts) {
       return
     }
   })
+
+  const favoriteProductsGetRouteSchema = {
+    summary: 'Get a client favorite products',
+    tags: ['clients'],
+    response: {
+      200: {
+        description: 'Ok. Returns a client favorite products.',
+        content: {
+          "application/json": {
+            "schema": { $ref: 'clientFavoriteProductsResponseSchema' }
+          }
+        }
+      },
+      204: {
+        "$ref": 'generic204ResponseSchema'
+      }
+    },
+  }
+
+  fastify.get("/favorite-products", {
+    schema: favoriteProductsGetRouteSchema,
+    handler: async function (request, reply) {
+      const clientId = request.params.clientId
+
+      const res = (await pool.query("SELECT * FROM favorite_products WHERE id_client = $1", [clientId])).rows
+
+      if (res.length === 0) {
+        reply.code(204)
+        return
+      }
+
+      const favoriteProducts = []
+
+      for (let i = 0; i < res.length; i++) {
+        const product = (await pool.query("SELECT * FROM products WHERE id = $1", [res[i].id_product])).rows[0]
+
+        favoriteProducts.push(product)
+      }
+
+      return favoriteProducts
+    }
+  })
+
+  const favoriteProductsPostRouteSchema = {
+    summary: 'Add a client favorite product',
+    tags: ['clients'],
+    response: {
+      204: {
+        "$ref": 'generic204ResponseSchema'
+      },
+    }
+  }
+
+  fastify.post("/favorite-products/:productId", {
+    schema: favoriteProductsPostRouteSchema,
+    handler: async function (request, reply) {
+      const clientId = request.params.clientId
+      const productId = request.params.productId
+
+      await pool.query("INSERT INTO favorite_products (id_client, id_product) VALUES ($1, $2)", [clientId, productId])
+
+      reply.code(204)
+      return
+    }
+  })
+
+  const favoriteProductsDeleteRouteSchema = {
+    summary: 'Delete a client favorite product',
+    tags: ['clients'],
+    response: {
+      204: {
+        "$ref": 'generic204ResponseSchema'
+      },
+    }
+  }
+
+  fastify.delete("/favorite-products/:productId", {
+    schema: favoriteProductsDeleteRouteSchema,
+    handler: async function (request, reply) {
+      const clientId = request.params.clientId
+      const productId = request.params.productId
+
+      await pool.query("DELETE FROM favorite_products WHERE id_client = $1 AND id_product = $2", [clientId, productId])
+
+      reply.code(204)
+      return
+    }
+  })
+
+  const favoriteBusinessesGetRouteSchema = {
+    summary: 'Get a client favorite businesses',
+    tags: ['clients'],
+    response: {
+      200: {
+        description: 'Ok. Returns a client favorite businesses.',
+        content: {
+          "application/json": {
+            "schema": { $ref: 'clientFavoriteBusinessesResponseSchema' }
+          }
+        }
+      },
+      204: {
+        "$ref": 'generic204ResponseSchema'
+      }
+    },
+  }
+
+  fastify.get("/favorite-businesses", {
+    schema: favoriteBusinessesGetRouteSchema,
+    handler: async function (request, reply) {
+      const clientId = request.params.clientId
+
+      const res = (await pool.query("SELECT * FROM favorite_businesses WHERE id_client = $1", [clientId])).rows
+
+      if (res.length === 0) {
+        reply.code(204)
+        return
+      }
+
+      const favoriteBusinesses = []
+
+      for (let i = 0; i < res.length; i++) {
+        const business = (await pool.query("SELECT * FROM businesses WHERE id = $1", [res[i].id_business])).rows[0]
+
+        favoriteBusinesses.push(business)
+      }
+
+      return favoriteBusinesses
+    }
+  })
+
+  const favoriteBusinessesPostRouteSchema = {
+    summary: 'Add a client favorite business',
+    tags: ['clients'],
+    response: {
+      204: {
+        "$ref": 'generic204ResponseSchema'
+      },
+    }
+  }
+
+  fastify.post("/favorite-businesses/:businessId", {
+    schema: favoriteBusinessesPostRouteSchema,
+    handler: async function (request, reply) {
+      const clientId = request.params.clientId
+      const businessId = request.params.businessId
+
+      await pool.query("INSERT INTO favorite_businesses (id_client, id_business) VALUES ($1, $2)", [clientId, businessId])
+
+      reply.code(204)
+      return
+    }
+  })
+
+  const favoriteBusinessesDeleteRouteSchema = {
+    summary: 'Delete a client favorite business',
+    tags: ['clients'],
+    response: {
+      204: {
+        "$ref": 'generic204ResponseSchema'
+      },
+    }
+  }
+
+  fastify.delete("/favorite-businesses/:businessId", {
+    schema: favoriteBusinessesDeleteRouteSchema,
+    handler: async function (request, reply) {
+      const clientId = request.params.clientId
+      const businessId = request.params.businessId
+
+      await pool.query("DELETE FROM favorite_businesses WHERE id_client = $1 AND id_business = $2", [clientId, businessId])
+
+      reply.code(204)
+      return
+    }
+  })
 }
