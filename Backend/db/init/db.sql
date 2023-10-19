@@ -24,6 +24,22 @@ CREATE DATABASE gifter
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
+-- Table: public.users
+
+DROP TABLE IF EXISTS public.users;
+
+CREATE TABLE IF NOT EXISTS public.users
+(
+    id integer NOT NULL DEFAULT 0,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT usuario_pkey PRIMARY KEY (id),
+    CONSTRAINT "emailUK" UNIQUE (email)
+)
+
+TABLESPACE pg_default;
+
 -- SEQUENCE: public.usuario_id_seq
 
 DROP SEQUENCE IF EXISTS public.usuario_id_seq;
@@ -36,27 +52,11 @@ CREATE SEQUENCE IF NOT EXISTS public.usuario_id_seq
     CACHE 1
     OWNED BY users.id;
 
+ALTER TABLE public.users
+    ALTER COLUMN id SET DEFAULT nextval('public.usuario_id_seq'::regclass);
+
 ALTER SEQUENCE public.usuario_id_seq
     OWNER TO gifter;
-
--- Table: public.users
-
-DROP TABLE IF EXISTS public.users;
-
-CREATE TABLE IF NOT EXISTS public.users
-(
-    id integer NOT NULL DEFAULT nextval('usuario_id_seq'::regclass),
-    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    password character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT usuario_pkey PRIMARY KEY (id),
-    CONSTRAINT "emailUK" UNIQUE (email)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.users
-    OWNER to gifter;
 
 -- Table: public.businesses
 
@@ -121,20 +121,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.distributors
     OWNER to gifter;
 
--- SEQUENCE: public.products_id_seq
-
-DROP SEQUENCE IF EXISTS public.products_id_seq;
-
-CREATE SEQUENCE IF NOT EXISTS public.products_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY products.id;
-
-ALTER SEQUENCE public.products_id_seq
-    OWNER TO gifter;
 
 -- Table: public.products
 
@@ -142,7 +128,7 @@ DROP TABLE IF EXISTS public.products;
 
 CREATE TABLE IF NOT EXISTS public.products
 (
-    id integer NOT NULL DEFAULT nextval('products_id_seq'::regclass),
+    id integer NOT NULL DEFAULT 0,
     name character varying(70) COLLATE pg_catalog."default" NOT NULL,
     type character varying(30) COLLATE pg_catalog."default" NOT NULL,
     description character varying(250) COLLATE pg_catalog."default" NOT NULL,
@@ -159,6 +145,25 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.products
     OWNER to gifter;
+
+-- SEQUENCE: public.products_id_seq
+
+DROP SEQUENCE IF EXISTS public.products_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.products_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY products.id;
+
+ALTER TABLE public.products
+    ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+
+ALTER SEQUENCE public.products_id_seq
+    OWNER TO gifter;
+
 
 -- Table: public.favorite_businesses
 
@@ -208,20 +213,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.favorite_products
     OWNER to gifter;
 
--- SEQUENCE: public.orders_id_seq
 
-DROP SEQUENCE IF EXISTS public.orders_id_seq;
-
-CREATE SEQUENCE IF NOT EXISTS public.orders_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY orders.id;
-
-ALTER SEQUENCE public.orders_id_seq
-    OWNER TO gifter;
 
 -- Table: public.orders
 
@@ -229,7 +221,7 @@ DROP TABLE IF EXISTS public.orders;
 
 CREATE TABLE IF NOT EXISTS public.orders
 (
-    id integer NOT NULL DEFAULT nextval('orders_id_seq'::regclass),
+    id integer NOT NULL DEFAULT 0,
     date date NOT NULL,
     state character varying(50) COLLATE pg_catalog."default" NOT NULL,
     id_client integer NOT NULL,
@@ -249,6 +241,24 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.orders
     OWNER to gifter;
+
+-- SEQUENCE: public.orders_id_seq
+
+DROP SEQUENCE IF EXISTS public.orders_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.orders_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY orders.id;
+
+ALTER TABLE public.orders
+    ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+ALTER SEQUENCE public.orders_id_seq
+    OWNER TO gifter;
 
 -- Table: public.order_details
 
@@ -275,20 +285,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.order_details
     OWNER to postgres;
 
--- SEQUENCE: public.deliveries_id_seq
 
-DROP SEQUENCE IF EXISTS public.deliveries_id_seq;
-
-CREATE SEQUENCE IF NOT EXISTS public.deliveries_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY deliveries.id;
-
-ALTER SEQUENCE public.deliveries_id_seq
-    OWNER TO gifter;
 
 -- Table: public.deliveries
 
@@ -296,7 +293,7 @@ DROP TABLE IF EXISTS public.deliveries;
 
 CREATE TABLE IF NOT EXISTS public.deliveries
 (
-    id integer NOT NULL DEFAULT nextval('deliveries_id_seq'::regclass),
+    id integer NOT NULL DEFAULT 0,
     date date,
     id_distributor integer NOT NULL,
     id_order integer NOT NULL,
@@ -318,3 +315,20 @@ ALTER TABLE IF EXISTS public.deliveries
     OWNER to gifter;
 
 
+-- SEQUENCE: public.deliveries_id_seq
+
+DROP SEQUENCE IF EXISTS public.deliveries_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.deliveries_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY deliveries.id;
+
+ALTER TABLE public.deliveries
+    ALTER COLUMN id SET DEFAULT nextval('public.deliveries_id_seq'::regclass);
+
+ALTER SEQUENCE public.deliveries_id_seq
+    OWNER TO gifter;
