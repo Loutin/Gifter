@@ -1,15 +1,32 @@
+const orderDetail = {
+  "$id": "orderDetail",
+  "type": "object",
+  "properties": {
+    "id_product": { "type": "integer" },
+    "quantity": { "type": "integer" },
+  },
+  "required": ["id_product", "quantity"],
+}
+
+const orderDetails = {
+  "$id": "orderDetails",
+  "type": "array",
+  "items": { "$ref": "orderDetail" }
+}
+
 const orderPostSchema = {
   "$id": "orderPostSchema",
   "type": 'object',
   "properties": {
     "date": { "type": 'string' },
     "state": { "type": 'string' },
-    "IDclient": { "type": 'string' },
+    "id_client": { "type": 'number' },
     "description": { "type": 'string' },
-    "IDcompany": { "type": 'number' },
+    "id_business": { "type": 'number' },
+    "details": { "$ref": "orderDetails" },
   },
-  "required": ['date', 'state', 'IDclient', 'description', 'IDcompany'],
-};
+  "required": ['date', 'state', 'id_client', 'description', 'id_business', 'details'],
+}
 
 const orderResponseSchema = {
   "$id": 'orderResponseSchema',
@@ -18,11 +35,12 @@ const orderResponseSchema = {
     "id": { "type": "integer" },
     "date": { "type": 'string' },
     "state": { "type": 'string' },
-    "IDclient": { "type": 'string' },
+    "id_client": { "type": 'number' },
     "description": { "type": 'string' },
-    "IDcompany": { "type": 'number' },
+    "id_business": { "type": 'number' },
+    "details": { "$ref": "orderDetails" },
   },
-  "required": ['id', 'date', 'state', 'IDclient', 'description', 'IDcompany'],
+  "required": ['id', 'date', 'state', 'id_client', 'description', 'id_business', 'details'],
 }
 
 const ordersResponseSchema = {
@@ -33,7 +51,7 @@ const ordersResponseSchema = {
 
 
 const ordersSchemas = {
-  orderPostSchema, orderResponseSchema, ordersResponseSchema,
+  orderPostSchema, orderResponseSchema, ordersResponseSchema, orderDetail, orderDetails
 }
 
 export default ordersSchemas;

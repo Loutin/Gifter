@@ -3,6 +3,7 @@ import clientsSchemas from "./clients/clients.js";
 import distributorsSchemas from "./distributors/distributors.js";
 import productsSchemas from "./products/products.js";
 import ordersSchemas from "./orders/orders.js";
+import deliveriesSchemas from "./deliveries/deliveries.js";
 
 const generic204ResponseSchema = {
   $id: "generic204ResponseSchema",
@@ -22,7 +23,8 @@ const schemas = {
   ...clientsSchemas,
   ...distributorsSchemas,
   ...productsSchemas,
-  ...ordersSchemas
+  ...ordersSchemas,
+  ...deliveriesSchemas
 }
 
 export default schemas;
