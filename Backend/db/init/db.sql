@@ -1,5 +1,5 @@
 -- Role: gifter
--- DROP ROLE IF EXISTS gifter;
+DROP ROLE IF EXISTS gifter;
 
 CREATE ROLE gifter WITH
   LOGIN
@@ -12,7 +12,7 @@ CREATE ROLE gifter WITH
 
 -- Database: gifter
 
--- DROP DATABASE IF EXISTS gifter;
+DROP DATABASE IF EXISTS gifter;
 
 CREATE DATABASE gifter
     WITH
@@ -24,9 +24,24 @@ CREATE DATABASE gifter
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
+-- SEQUENCE: public.usuario_id_seq
+
+DROP SEQUENCE IF EXISTS public.usuario_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.usuario_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY users.id;
+
+ALTER SEQUENCE public.usuario_id_seq
+    OWNER TO gifter;
+
 -- Table: public.users
 
--- DROP TABLE IF EXISTS public.users;
+DROP TABLE IF EXISTS public.users;
 
 CREATE TABLE IF NOT EXISTS public.users
 (
@@ -45,7 +60,7 @@ ALTER TABLE IF EXISTS public.users
 
 -- Table: public.businesses
 
--- DROP TABLE IF EXISTS public.businesses;
+DROP TABLE IF EXISTS public.businesses;
 
 CREATE TABLE IF NOT EXISTS public.businesses
 (
@@ -66,7 +81,7 @@ ALTER TABLE IF EXISTS public.businesses
 
 -- Table: public.clients
 
--- DROP TABLE IF EXISTS public.clients;
+DROP TABLE IF EXISTS public.clients;
 
 CREATE TABLE IF NOT EXISTS public.clients
 (
@@ -87,7 +102,7 @@ ALTER TABLE IF EXISTS public.clients
 
 -- Table: public.distributors
 
--- DROP TABLE IF EXISTS public.distributors;
+DROP TABLE IF EXISTS public.distributors;
 
 CREATE TABLE IF NOT EXISTS public.distributors
 (
@@ -106,9 +121,24 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.distributors
     OWNER to gifter;
 
+-- SEQUENCE: public.products_id_seq
+
+DROP SEQUENCE IF EXISTS public.products_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.products_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY products.id;
+
+ALTER SEQUENCE public.products_id_seq
+    OWNER TO gifter;
+
 -- Table: public.products
 
--- DROP TABLE IF EXISTS public.products;
+DROP TABLE IF EXISTS public.products;
 
 CREATE TABLE IF NOT EXISTS public.products
 (
@@ -132,7 +162,7 @@ ALTER TABLE IF EXISTS public.products
 
 -- Table: public.favorite_businesses
 
--- DROP TABLE IF EXISTS public.favorite_businesses;
+DROP TABLE IF EXISTS public.favorite_businesses;
 
 CREATE TABLE IF NOT EXISTS public.favorite_businesses
 (
@@ -156,7 +186,7 @@ ALTER TABLE IF EXISTS public.favorite_businesses
 
 -- Table: public.favorite_products
 
--- DROP TABLE IF EXISTS public.favorite_products;
+DROP TABLE IF EXISTS public.favorite_products;
 
 CREATE TABLE IF NOT EXISTS public.favorite_products
 (
@@ -178,34 +208,24 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.favorite_products
     OWNER to gifter;
 
--- Table: public.order_details
+-- SEQUENCE: public.orders_id_seq
 
--- DROP TABLE IF EXISTS public.order_details;
+DROP SEQUENCE IF EXISTS public.orders_id_seq;
 
-CREATE TABLE IF NOT EXISTS public.order_details
-(
-    id_order integer NOT NULL,
-    id_product integer NOT NULL,
-    count integer NOT NULL,
-    CONSTRAINT order_details_pkey PRIMARY KEY (id_order, id_product),
-    CONSTRAINT id_order_fk FOREIGN KEY (id_order)
-        REFERENCES public.orders (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT id_product_fk FOREIGN KEY (id_product)
-        REFERENCES public.products (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
+CREATE SEQUENCE IF NOT EXISTS public.orders_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY orders.id;
 
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.order_details
-    OWNER to postgres;
+ALTER SEQUENCE public.orders_id_seq
+    OWNER TO gifter;
 
 -- Table: public.orders
 
--- DROP TABLE IF EXISTS public.orders;
+DROP TABLE IF EXISTS public.orders;
 
 CREATE TABLE IF NOT EXISTS public.orders
 (
@@ -230,5 +250,71 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.orders
     OWNER to gifter;
 
+-- Table: public.order_details
+
+DROP TABLE IF EXISTS public.order_details;
+
+CREATE TABLE IF NOT EXISTS public.order_details
+(
+    id_order integer NOT NULL,
+    id_product integer NOT NULL,
+    count integer NOT NULL,
+    CONSTRAINT order_details_pkey PRIMARY KEY (id_order, id_product),
+    CONSTRAINT id_order_fk FOREIGN KEY (id_order)
+        REFERENCES public.orders (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT id_product_fk FOREIGN KEY (id_product)
+        REFERENCES public.products (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.order_details
+    OWNER to postgres;
+
+-- SEQUENCE: public.deliveries_id_seq
+
+DROP SEQUENCE IF EXISTS public.deliveries_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.deliveries_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY deliveries.id;
+
+ALTER SEQUENCE public.deliveries_id_seq
+    OWNER TO gifter;
+
+-- Table: public.deliveries
+
+DROP TABLE IF EXISTS public.deliveries;
+
+CREATE TABLE IF NOT EXISTS public.deliveries
+(
+    id integer NOT NULL DEFAULT nextval('deliveries_id_seq'::regclass),
+    date date,
+    id_distributor integer NOT NULL,
+    id_order integer NOT NULL,
+    state character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT deliveries_pk PRIMARY KEY (id),
+    CONSTRAINT id_distributor_fk FOREIGN KEY (id_distributor)
+        REFERENCES public.distributors (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT id_order_fk FOREIGN KEY (id_order)
+        REFERENCES public.orders (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.deliveries
+    OWNER to gifter;
 
 
