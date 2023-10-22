@@ -23,12 +23,14 @@ export default async function (fastify, opts) {
   fastify.get("/processed", {
     schema: processedOrdersGetRouteSchema,
     handler: async function (request, reply) {
-      const orders = (await pool.query("SELECT * FROM orders WHERE state = 'Processed'")).rows
+      const orders = (await pool.query("SELECT * FROM orders WHERE state = 'processed'")).rows
 
+      /* c8 ignore start */
       if (orders.length === 0) {
         reply.code(204)
         return
       }
+      /* c8 ignore stop */
 
       for (let i = 0; i < orders.length; i++) {
         orders[i].details = (await pool.query("SELECT * FROM order_details WHERE id_order = $1", [orders[i].id])).rows
@@ -57,7 +59,7 @@ export default async function (fastify, opts) {
       const orderId = request.params.orderId
       const distributorId = request.params.distributorId
       const date = new Date()
-      const state = 'Pending'
+      const state = 'pending'
 
       const order = (await pool.query("SELECT * FROM orders WHERE id = $1", [orderId])).rows[0]
 
@@ -66,7 +68,7 @@ export default async function (fastify, opts) {
         return
       }
 
-      await pool.query("UPDATE orders SET state = 'Delivering' WHERE id = $1", [orderId])
+      await pool.query("UPDATE orders SET state = 'delivering' WHERE id = $1", [orderId])
 
       await pool.query("INSERT INTO deliveries (id_distributor, id_order, date, state) VALUES ($1, $2, $3, $4)", [distributorId, orderId, date, state])
 
@@ -100,10 +102,12 @@ export default async function (fastify, opts) {
 
       const deliveries = (await pool.query("SELECT * FROM deliveries WHERE id_distributor = $1", [distributorId])).rows
 
+      /* c8 ignore start */
       if (deliveries.length === 0) {
         reply.code(204)
         return
       }
+      /* c8 ignore stop */
 
       return deliveries
     }

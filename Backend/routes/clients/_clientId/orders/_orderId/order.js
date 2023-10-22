@@ -67,7 +67,7 @@ export default async function (fastify, opts) {
         return
       }
 
-      await pool.query("UPDATE orders SET state = 'Cancelled' WHERE id_client = $1 AND id = $2", [clientId, orderId])
+      await pool.query("UPDATE orders SET state = 'cancelled' WHERE id_client = $1 AND id = $2", [clientId, orderId])
 
       reply.code(204)
       return

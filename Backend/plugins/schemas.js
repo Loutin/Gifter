@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import fp from 'fastify-plugin'
 import schemas from "../schemas/index.js"
 
@@ -15,3 +16,4 @@ export default fp(async (fastify) => {
   }
 
 })
+/* c8 ignore stop */

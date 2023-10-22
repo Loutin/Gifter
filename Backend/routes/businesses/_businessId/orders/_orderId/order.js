@@ -67,7 +67,7 @@ export default async function (fastify, opts) {
         return
       }
 
-      await pool.query("UPDATE orders SET state = 'Processed' WHERE id_business = $1 AND id = $2", [businessId, orderId])
+      await pool.query("UPDATE orders SET state = 'processed' WHERE id_business = $1 AND id = $2", [businessId, orderId])
 
       reply.code(204)
       return
@@ -100,7 +100,7 @@ export default async function (fastify, opts) {
         return
       }
 
-      await pool.query("UPDATE orders SET state = 'Declined' WHERE id_business = $1 AND id = $2", [businessId, orderId])
+      await pool.query("UPDATE orders SET state = 'declined' WHERE id_business = $1 AND id = $2", [businessId, orderId])
 
       reply.code(204)
       return

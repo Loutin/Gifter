@@ -1,36 +1,21 @@
--- Role: gifter
-DROP ROLE IF EXISTS gifter;
+-- --Drops
 
-CREATE ROLE gifter WITH
-  LOGIN
-  SUPERUSER
-  INHERIT
-  CREATEDB
-  CREATEROLE
-  NOREPLICATION
-  ENCRYPTED PASSWORD 'SCRAM-SHA-256$4096:AVTNrP+uL1PCnchKiRQNVQ==$smZ0L25IOFffiDKun63mC6jpIVLMQpsBb+OoVcZl+L8=:60rK/VZ7MpPcCqjNeZMtIzaExRISwrCZ0swdvf35V7I=';
-
--- Database: gifter
-
-DROP DATABASE IF EXISTS gifter;
-
-CREATE DATABASE gifter
-    WITH
-    OWNER = gifter
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'Spanish_Uruguay.1252'
-    LC_CTYPE = 'Spanish_Uruguay.1252'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
-
--- Table: public.users
-
+DROP TABLE IF EXISTS public.deliveries;
+DROP TABLE IF EXISTS public.order_details;
+DROP TABLE IF EXISTS public.orders;
+DROP TABLE IF EXISTS public.favorite_products;
+DROP TABLE IF EXISTS public.favorite_businesses;
+DROP TABLE IF EXISTS public.products;
+DROP TABLE IF EXISTS public.distributors;
+DROP TABLE IF EXISTS public.clients;
+DROP TABLE IF EXISTS public.businesses;
 DROP TABLE IF EXISTS public.users;
+
+-- --Tables
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    id integer NOT NULL DEFAULT 0,
+    id SERIAL NOT NULL,
     name character varying(50) COLLATE pg_catalog."default" NOT NULL,
     email character varying(100) COLLATE pg_catalog."default" NOT NULL,
     password character varying(100) COLLATE pg_catalog."default" NOT NULL,
@@ -43,27 +28,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.users
     OWNER to gifter;
 
--- SEQUENCE: public.usuario_id_seq
-
-DROP SEQUENCE IF EXISTS public.usuario_id_seq;
-
-CREATE SEQUENCE IF NOT EXISTS public.usuario_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY users.id;
-
-ALTER TABLE public.users
-    ALTER COLUMN id SET DEFAULT nextval('public.usuario_id_seq'::regclass);
-
-ALTER SEQUENCE public.usuario_id_seq
-    OWNER TO gifter;
-
 -- Table: public.businesses
-
-DROP TABLE IF EXISTS public.businesses;
 
 CREATE TABLE IF NOT EXISTS public.businesses
 (
@@ -84,8 +49,6 @@ ALTER TABLE IF EXISTS public.businesses
 
 -- Table: public.clients
 
-DROP TABLE IF EXISTS public.clients;
-
 CREATE TABLE IF NOT EXISTS public.clients
 (
     id integer NOT NULL,
@@ -104,8 +67,6 @@ ALTER TABLE IF EXISTS public.clients
     OWNER to gifter;
 
 -- Table: public.distributors
-
-DROP TABLE IF EXISTS public.distributors;
 
 CREATE TABLE IF NOT EXISTS public.distributors
 (
@@ -127,11 +88,9 @@ ALTER TABLE IF EXISTS public.distributors
 
 -- Table: public.products
 
-DROP TABLE IF EXISTS public.products;
-
 CREATE TABLE IF NOT EXISTS public.products
 (
-    id integer NOT NULL DEFAULT 0,
+    id SERIAL NOT NULL,
     name character varying(70) COLLATE pg_catalog."default" NOT NULL,
     type character varying(30) COLLATE pg_catalog."default" NOT NULL,
     description character varying(250) COLLATE pg_catalog."default" NOT NULL,
@@ -149,28 +108,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.products
     OWNER to gifter;
 
--- SEQUENCE: public.products_id_seq
-
-DROP SEQUENCE IF EXISTS public.products_id_seq;
-
-CREATE SEQUENCE IF NOT EXISTS public.products_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY products.id;
-
-ALTER TABLE public.products
-    ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
-
-ALTER SEQUENCE public.products_id_seq
-    OWNER TO gifter;
-
-
 -- Table: public.favorite_businesses
-
-DROP TABLE IF EXISTS public.favorite_businesses;
 
 CREATE TABLE IF NOT EXISTS public.favorite_businesses
 (
@@ -194,8 +132,6 @@ ALTER TABLE IF EXISTS public.favorite_businesses
 
 -- Table: public.favorite_products
 
-DROP TABLE IF EXISTS public.favorite_products;
-
 CREATE TABLE IF NOT EXISTS public.favorite_products
 (
     id_product integer NOT NULL,
@@ -217,18 +153,16 @@ ALTER TABLE IF EXISTS public.favorite_products
     OWNER to gifter;
 
 
-
 -- Table: public.orders
-
-DROP TABLE IF EXISTS public.orders;
 
 CREATE TABLE IF NOT EXISTS public.orders
 (
-    id integer NOT NULL DEFAULT 0,
+    id SERIAL NOT NULL,
     date date NOT NULL,
     state character varying(50) COLLATE pg_catalog."default" NOT NULL,
     id_client integer NOT NULL,
     id_business integer NOT NULL,
+    description character varying(250) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT orders_pk PRIMARY KEY (id),
     CONSTRAINT id_business_fk FOREIGN KEY (id_business)
         REFERENCES public.businesses (id) MATCH SIMPLE
@@ -245,33 +179,14 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.orders
     OWNER to gifter;
 
--- SEQUENCE: public.orders_id_seq
-
-DROP SEQUENCE IF EXISTS public.orders_id_seq;
-
-CREATE SEQUENCE IF NOT EXISTS public.orders_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY orders.id;
-
-ALTER TABLE public.orders
-    ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
-
-ALTER SEQUENCE public.orders_id_seq
-    OWNER TO gifter;
 
 -- Table: public.order_details
-
-DROP TABLE IF EXISTS public.order_details;
 
 CREATE TABLE IF NOT EXISTS public.order_details
 (
     id_order integer NOT NULL,
     id_product integer NOT NULL,
-    count integer NOT NULL,
+    quantity integer NOT NULL,
     CONSTRAINT order_details_pkey PRIMARY KEY (id_order, id_product),
     CONSTRAINT id_order_fk FOREIGN KEY (id_order)
         REFERENCES public.orders (id) MATCH SIMPLE
@@ -292,11 +207,9 @@ ALTER TABLE IF EXISTS public.order_details
 
 -- Table: public.deliveries
 
-DROP TABLE IF EXISTS public.deliveries;
-
 CREATE TABLE IF NOT EXISTS public.deliveries
 (
-    id integer NOT NULL DEFAULT 0,
+    id SERIAL NOT NULL,
     date date,
     id_distributor integer NOT NULL,
     id_order integer NOT NULL,
@@ -317,21 +230,43 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.deliveries
     OWNER to gifter;
 
+-- --Inserts
 
--- SEQUENCE: public.deliveries_id_seq
+--Users
 
-DROP SEQUENCE IF EXISTS public.deliveries_id_seq;
+INSERT INTO public.users (name, email, password) VALUES ('Rodrigo', 'j6H5x@example.com', '123');
+INSERT INTO public.users (name, email, password) VALUES ('Agustin', 'a@b.com', '321');
+INSERT INTO public.users (name, email, password) VALUES ('Regalos Carloco', 'f@g.com', '456');
 
-CREATE SEQUENCE IF NOT EXISTS public.deliveries_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY deliveries.id;
+--Clients
+INSERT INTO public.clients (id, phone, description) VALUES (1, '123456789', 'una descripción');
 
-ALTER TABLE public.deliveries
-    ALTER COLUMN id SET DEFAULT nextval('public.deliveries_id_seq'::regclass);
+--Distributors
+INSERT INTO public.distributors (id, phone, availability) VALUES (2, '987654321', 'disponible');
 
-ALTER SEQUENCE public.deliveries_id_seq
-    OWNER TO gifter;
+--Businesses
+INSERT INTO public.businesses (id, address, phone) VALUES (3, 'calle falsa 123', '123456789');
+
+--Products
+INSERT INTO public.products (name, price, type, description, id_business) VALUES ('Chocolate', 150, 'food', 'una descripción', 3);
+
+--favorite_businesses
+INSERT INTO public.favorite_businesses (id_business, id_client) VALUES (3, 1);
+
+--favorite_products
+INSERT INTO public.favorite_products (id_product, id_client) VALUES (1, 1);
+
+--orders
+INSERT INTO public.orders (date, state, id_client, id_business, description) VALUES ('2022-01-01', 'started', 1, 3, 'una descripción');
+INSERT INTO public.orders (date, state, id_client, id_business, description) VALUES ('2022-01-01', 'processed', 1, 3, 'una descripción');
+INSERT INTO public.orders (date, state, id_client, id_business, description) VALUES ('2022-01-01', 'processed', 1, 3, 'dos descripción');
+INSERT INTO public.orders (date, state, id_client, id_business, description) VALUES ('2022-01-01', 'processed', 1, 3, 'tres descripción');
+
+--order_details
+INSERT INTO public.order_details (id_order, id_product, quantity) VALUES (1, 1, 5);
+INSERT INTO public.order_details (id_order, id_product, quantity) VALUES (2, 1, 9);
+INSERT INTO public.order_details (id_order, id_product, quantity) VALUES (3, 1, 17);
+INSERT INTO public.order_details (id_order, id_product, quantity) VALUES (4, 1, 19);
+
+--deliveries
+INSERT INTO public.deliveries (date, id_distributor, id_order, state) VALUES ('2022-01-01', 2, 1, 'pending');

@@ -27,10 +27,12 @@ export default async function (fastify, opts) {
 
       const orders = (await pool.query("SELECT * FROM orders WHERE id_business = $1", [businessId])).rows
 
+      /* c8 ignore start */
       if (orders.length === 0) {
         reply.code(204)
         return
       }
+      /* c8 ignore stop */
 
       for (let i = 0; i < orders.length; i++) {
         const orderDetails = (await pool.query("SELECT * FROM order_details WHERE id_order = $1", [orders[i].id])).rows

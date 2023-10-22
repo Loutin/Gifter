@@ -63,7 +63,7 @@ export default async function (fastify, opts) {
         return
       }
 
-      await pool.query("UPDATE deliveries SET state = 'InProgress' WHERE id_distributor = $1 AND id = $2", [distributorId, deliveryId])
+      await pool.query("UPDATE deliveries SET state = 'inProgress' WHERE id_distributor = $1 AND id = $2", [distributorId, deliveryId])
 
       reply.code(204)
       return
@@ -96,9 +96,9 @@ export default async function (fastify, opts) {
         return
       }
 
-      await pool.query("UPDATE deliveries SET state = 'Delivered' WHERE id_distributor = $1 AND id = $2", [distributorId, deliveryId])
+      await pool.query("UPDATE deliveries SET state = 'delivered' WHERE id_distributor = $1 AND id = $2", [distributorId, deliveryId])
 
-      await pool.query("UPDATE orders SET state = 'Delivered' WHERE id = $1", [delivery.id_order])
+      await pool.query("UPDATE orders SET state = 'delivered' WHERE id = $1", [delivery.id_order])
 
       reply.code(204)
       return

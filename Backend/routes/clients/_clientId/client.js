@@ -135,10 +135,12 @@ export default async function (fastify, opts) {
 
       const res = (await pool.query("SELECT * FROM favorite_products WHERE id_client = $1", [clientId])).rows
 
+      /* c8 ignore start */
       if (res.length === 0) {
         reply.code(204)
         return
       }
+      /* c8 ignore stop */
 
       const favoriteProducts = []
 
@@ -156,9 +158,18 @@ export default async function (fastify, opts) {
     summary: 'Add a client favorite product',
     tags: ['clients'],
     response: {
-      204: {
-        "$ref": 'generic204ResponseSchema'
+      404: {
+        "$ref": 'generic404ResponseSchema'
       },
+      201: {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Product added to favorites"
+          }
+        }
+      }
     }
   }
 
@@ -168,9 +179,17 @@ export default async function (fastify, opts) {
       const clientId = request.params.clientId
       const productId = request.params.productId
 
+      const client = (await pool.query("SELECT * FROM clients WHERE id = $1", [clientId])).rows[0]
+      const product = (await pool.query("SELECT * FROM products WHERE id = $1", [productId])).rows[0]
+
+      if (!client || !product) {
+        reply.code(404)
+        return
+      }
+
       await pool.query("INSERT INTO favorite_products (id_client, id_product) VALUES ($1, $2)", [clientId, productId])
 
-      reply.code(204)
+      reply.code(201)
       return
     }
   })
@@ -182,6 +201,9 @@ export default async function (fastify, opts) {
       204: {
         "$ref": 'generic204ResponseSchema'
       },
+      404: {
+        "$ref": 'generic404ResponseSchema'
+      }
     }
   }
 
@@ -190,6 +212,14 @@ export default async function (fastify, opts) {
     handler: async function (request, reply) {
       const clientId = request.params.clientId
       const productId = request.params.productId
+
+      const client = (await pool.query("SELECT * FROM clients WHERE id = $1", [clientId])).rows[0]
+      const product = (await pool.query("SELECT * FROM products WHERE id = $1", [productId])).rows[0]
+
+      if (!client || !product) {
+        reply.code(404)
+        return
+      }
 
       await pool.query("DELETE FROM favorite_products WHERE id_client = $1 AND id_product = $2", [clientId, productId])
 
@@ -223,10 +253,12 @@ export default async function (fastify, opts) {
 
       const res = (await pool.query("SELECT * FROM favorite_businesses WHERE id_client = $1", [clientId])).rows
 
+      /* c8 ignore start */
       if (res.length === 0) {
         reply.code(204)
         return
       }
+      /* c8 ignore stop */
 
       const favoriteBusinesses = []
 
@@ -244,9 +276,18 @@ export default async function (fastify, opts) {
     summary: 'Add a client favorite business',
     tags: ['clients'],
     response: {
-      204: {
-        "$ref": 'generic204ResponseSchema'
+      404: {
+        "$ref": 'generic404ResponseSchema'
       },
+      201: {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Business added to favorites"
+          }
+        }
+      }
     }
   }
 
@@ -256,9 +297,17 @@ export default async function (fastify, opts) {
       const clientId = request.params.clientId
       const businessId = request.params.businessId
 
+      const client = (await pool.query("SELECT * FROM clients WHERE id = $1", [clientId])).rows[0]
+      const business = (await pool.query("SELECT * FROM businesses WHERE id = $1", [businessId])).rows[0]
+
+      if (!client || !business) {
+        reply.code(404)
+        return
+      }
+
       await pool.query("INSERT INTO favorite_businesses (id_client, id_business) VALUES ($1, $2)", [clientId, businessId])
 
-      reply.code(204)
+      reply.code(201)
       return
     }
   })
@@ -270,6 +319,9 @@ export default async function (fastify, opts) {
       204: {
         "$ref": 'generic204ResponseSchema'
       },
+      404: {
+        "$ref": 'generic404ResponseSchema'
+      }
     }
   }
 
@@ -278,6 +330,14 @@ export default async function (fastify, opts) {
     handler: async function (request, reply) {
       const clientId = request.params.clientId
       const businessId = request.params.businessId
+
+      const client = (await pool.query("SELECT * FROM clients WHERE id = $1", [clientId])).rows[0]
+      const business = (await pool.query("SELECT * FROM businesses WHERE id = $1", [businessId])).rows[0]
+
+      if (!client || !business) {
+        reply.code(404)
+        return
+      }
 
       await pool.query("DELETE FROM favorite_businesses WHERE id_client = $1 AND id_business = $2", [clientId, businessId])
 

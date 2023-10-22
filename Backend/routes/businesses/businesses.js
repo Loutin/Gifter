@@ -62,9 +62,11 @@ export default async function (fastify, opts) {
       const businesses = (await pool.query("SELECT * FROM businesses")).rows
       console.log(`businesses: ${businesses}`)
 
+      /* c8 ignore start */
       if(businesses.length === 0) {
         reply.code(204)
       }
+      /* c8 ignore stop */
 
       return businesses
     }

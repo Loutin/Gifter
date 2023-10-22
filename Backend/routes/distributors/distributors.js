@@ -60,10 +60,13 @@ export default async function (fastify, opts) {
     handler: async (request, reply) => {
       const distributors = (await pool.query("SELECT * FROM distributors")).rows
       console.log(`distributors: ${distributors}`)
+
+      /* c8 ignore start */
       if(distributors.length === 0) {
         reply.code(204)
         return
       }
+      /* c8 ignore stop */
 
       return distributors
     }

@@ -19,13 +19,13 @@ const orderPostSchema = {
   "type": 'object',
   "properties": {
     "date": { "type": 'string' },
-    "state": { "type": 'string' },
+    // "state": { "type": 'string' },
     "id_client": { "type": 'number' },
     "description": { "type": 'string' },
     "id_business": { "type": 'number' },
     "details": { "$ref": "orderDetails" },
   },
-  "required": ['date', 'state', 'id_client', 'description', 'id_business', 'details'],
+  "required": ['date', 'id_client', 'description', 'id_business', 'details'],
 }
 
 const orderResponseSchema = {

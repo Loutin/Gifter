@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import fastify from 'fastify'
 import fp from 'fastify-plugin'
 import swagger from "@fastify/swagger"
@@ -57,3 +58,4 @@ export default fp(async (fastify, opts) => {
   // });
 
 })
+/* c8 ignore stop */

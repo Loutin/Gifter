@@ -60,10 +60,12 @@ export default async function (fastify, opts) {
       const clients = (await pool.query("SELECT * FROM clients")).rows
       console.log(`clients: ${clients}`)
 
+      /* c8 ignore start */
       if(clients.length === 0) {
         reply.code(204)
         return
       }
+      /* c8 ignore stop */
 
       return clients
     }

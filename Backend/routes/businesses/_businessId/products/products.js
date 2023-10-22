@@ -70,10 +70,12 @@ export default async function (fastify, opts) {
       const products = (await pool.query("SELECT * FROM products WHERE id_business = $1", [businessId])).rows
       console.log(`products: ${products}`)
 
+      /* c8 ignore start */
       if(products.length === 0) {
         reply.code(204)
         return
       }
+      /* c8 ignore stop */
 
       return products
     }

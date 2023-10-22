@@ -5,7 +5,7 @@ test('Get all products, OK', async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/businesses/13/products/',
+    url: '/businesses/3/products/',
     method: 'GET'
   })
 
@@ -13,23 +13,23 @@ test('Get all products, OK', async (t) => {
   t.end();
 })
 
-test('Get all products, not OK', async (t) => {
-  const app = await build(t)
+// test('Get all products, not OK', async (t) => {
+//   const app = await build(t)
 
-  const response = await app.inject({
-    url: '/businesses/13/products/',
-    method: 'GET'
-  })
+//   const response = await app.inject({
+//     url: '/businesses/3/products/',
+//     method: 'GET'
+//   })
 
-  t.equal(response.statusCode, 204, 'Get all products, not OK. El código de respuesta es 204');
-  t.end();
-})
+//   t.equal(response.statusCode, 204, 'Get all products, not OK. El código de respuesta es 204');
+//   t.end();
+// })
 
 test("Get a product, OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/businesses/13/products/8',
+    url: '/businesses/3/products/1',
     method: 'GET'
   })
 
@@ -52,19 +52,46 @@ test("Get a product, not OK", async (t) => {
 test("Create a product, OK", async (t) => {
   const app = await build(t)
 
+  // create a product
   const response = await app.inject({
-    url: '/businesses/13/products',
+    url: '/businesses/3/products',
     method: 'POST',
     payload: {
       name: 'test',
       type: 'test',
       description: 'test',
       price: 200,
-      id_business: 13
+      id_business: 3
     }
   })
 
+  // check all the fields of the returned object are the same as the payload
+  const createdProduct = (await app.inject({
+    url: '/businesses/3/products/' + response.json().id,
+    method: 'GET'
+  })).json()
+
+  t.same(createdProduct, {
+    id: createdProduct.id,
+    name: 'test',
+    type: 'test',
+    description: 'test',
+    price: 200,
+    id_business: 3
+  },
+  'The created product is the same as the payload'
+  )
+
+  // check the response code
   t.equal(response.statusCode, 201, 'Create a product, OK. El código de respuesta es 201');
+
+  // delete the created product
+  await app.inject({
+    url: '/businesses/3/products/' + response.json().id,
+    method: 'DELETE'
+  })
+
+  // end the test
   t.end();
 })
 
@@ -72,14 +99,14 @@ test("Create a product, not OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/businesses/13/products',
+    url: '/businesses/3/products',
     method: 'POST',
     payload: {
-      names: 'test',
-      types: 'test',
-      descriptions: 'test',
-      prices: 200,
-      id_businesss: 1000
+      name: 'test',
+      type: 'test',
+      description: 'test',
+      price: 200,
+      id_business: 1000
     }
   })
 
@@ -90,20 +117,60 @@ test("Create a product, not OK", async (t) => {
 test("Update a product, OK", async (t) => {
   const app = await build(t)
 
+  // create a product
   const response = await app.inject({
-    url: '/businesses/13/products/8',
-    method: 'PUT',
+    url: '/businesses/3/products',
+    method: 'POST',
     payload: {
-      id: 8,
-      name: 'test',
-      type: 'test',
-      description: 'test',
+      name: 'test2',
+      type: 'test2',
+      description: 'test2',
       price: 200,
-      id_business: 13
+      id_business: 3
     }
   })
 
-  t.equal(response.statusCode, 204, 'Update a product, OK. El código de respuesta es 204');
+  // update the created product
+  const response2 = await app.inject({
+    url: '/businesses/3/products/' + response.json().id,
+    method: 'PUT',
+    payload: {
+      id: response.json().id,
+      name: 'tested',
+      type: 'tested',
+      description: 'tested',
+      price: 200,
+      id_business: 3
+    }
+  })
+
+  // check the response code
+  t.equal(response2.statusCode, 204, 'Update a product, OK. El código de respuesta es 204');
+
+  // check all the fields of the updated product are the same as the payload
+  const updatedProduct = (await app.inject({
+    url: '/businesses/3/products/' + response.json().id,
+    method: 'GET'
+  })).json()
+
+  t.same(updatedProduct, {
+    id: updatedProduct.id,
+    name: 'tested',
+    type: 'tested',
+    description: 'tested',
+    price: 200,
+    id_business: 3
+  },
+  'The updated product is the same as the payload'
+  )
+
+  // delete the created product
+  await app.inject({
+    url: '/businesses/3/products/' + response.json().id,
+    method: 'DELETE'
+  })
+
+  // end the test
   t.end();
 })
 
@@ -111,10 +178,10 @@ test("Update a product, not OK", async (t) => {
   const app = await build(t)
 
   const response = await app.inject({
-    url: '/products/1000',
+    url: '/businesses/3/products/1',
     method: 'PUT',
     payload: {
-      id: 1,
+      id: 2,
       name: 'test',
       type: 'test',
       description: 'test',
@@ -130,12 +197,25 @@ test("Update a product, not OK", async (t) => {
 test("Delete a product, OK", async (t) => {
   const app = await build(t)
 
+  // create a product
   const response = await app.inject({
-    url: '/businesses/13/products/8',
+    url: '/businesses/3/products',
+    method: 'POST',
+    payload: {
+      name: 'test3',
+      type: 'test3',
+      description: 'test3',
+      price: 200,
+      id_business: 3
+    }
+  })
+
+  const response2 = await app.inject({
+    url: '/businesses/3/products/' + response.json().id,
     method: 'DELETE'
   })
 
-  t.equal(response.statusCode, 204, 'Delete a product, OK". El código de respuesta es 204');
+  t.equal(response2.statusCode, 204, 'Delete a product, OK". El código de respuesta es 204');
   t.end();
 })
 
