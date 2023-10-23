@@ -1,24 +1,40 @@
-# Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
+## Set up
 
-This project was bootstrapped with Fastify-CLI.
+#### Paso 1:
 
-## Available Scripts
+Se debe de crear el usuario gifter en la base de datos con la contraseña gifter.
 
-In the project directory, you can run:
+#### Paso 2:
 
-### `npm run dev`
+Se debe de crear la base de datos gifter.
 
-To start the app in dev mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Paso 3:
 
-### `npm start`
+Ejecutar los comandos de el archivo db.sql para asi crear todo el contenido de la base de datos y en caso de ya contar con archivos eliminar los antiguos.
 
-For production mode
+#### Paso 4:
 
-### `npm run test`
+Crear el archivo .env en la raiz del proyecto con las variables de entorno las cuales son:
 
-Run the test cases.
+    FASTIFY_HOST
+    FASTIFY_PORT
+    POSTGRES_HOST
+    POSTGRES_PORT
+    POSTGRES_USER
+    POSTGRES_PASSWORD
+    POSTGRES_DB
 
-## Learn More
+#### Paso 5:
 
-To learn Fastify, check out the [Fastify documentation](https://www.fastify.io/docs/latest/).
+Ejecutar el comando:
+`npm install`
+
+## Ejecutar aplicación
+
+Ejecutar el comando:
+`npm run dev`
+
+## Ejecutar tests
+
+Ejecutar el comando:
+`npm run test`
