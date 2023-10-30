@@ -1,53 +1,6 @@
-<nav class="navbar navbar-expand-lg ">
-  <header class="container-fluid">
-    <img width="30" height="30" src="../assets/GifterLogo.png" alt="Logo de Gifter">
-    <a class="navbar-brand" href="#">Gifter</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Regalos</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categorias
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Comidas</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Flores</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Joyeria</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Ropa</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Otros</a></li>
-            
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Nosotros</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Ej. Flores" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
-      <ul class="navbar-nav ">
-        <li id="MargenLogin" class="nav-item">
-          <a class="nav-link" href="#">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Registro</a>
-        </li>
-      </ul>
-    </div>
-  </header>
-</nav>
+<!-- <app-nav></app-nav> -->
 
-<main>
+<!-- <main>
   <div id="frase1" class="container-fluid">
     <p>Mas de 100 empresas asociadas</p>
   </div>
@@ -80,62 +33,11 @@
       </div>
     </div>
   </div>
-</main>
+</main> -->
 
-<footer class=" text-white text-center text-lg-start">
-  <!-- Grid container -->
-  <div class="container p-4">
-    <!--Grid row-->
-    <div class="row">
-      <!--Grid column-->
-      <div id="LogoFooter" class="col-lg-4 col-md-12 mb-4 mb-md-0">
-        <img width="30" height="30" src="../assets/GifterLogo.png" alt="">
-        <h5>Gifter</h5>
-      </div>
-      <!--Grid column-->
 
-      <!--Grid column-->
-      <div class="col-lg-3 col-md-6 mb-4 mb-md-0 NosotrosyContacto">
-        <h5 class="text-uppercase">Nosotros</h5>
+<!-- <app-footer></app-footer>  -->
 
-        <ul class="list-unstyled mb-0 BarraFooter">
-          <li>
-            <a href="#!" class="nav-link active">Valores</a>
-          </li>
-          <li>
-            <a href="#!" class="nav-link active">Motivación</a>
-          </li>
-        </ul>
-      </div>
-      <!--Grid column-->
+<app-login></app-login>
 
-      <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4 mb-md-0 NosotrosyContacto">
-        <h5 class="text-uppercase mb-0">Contacto</h5>
-
-        <ul class="list-unstyled mb-0 BarraFooter">
-          <li>
-            <a href="#!" class="nav-link active">Whatsapp</a>
-          </li>
-          <li>
-            <a href="#!" class="nav-link active">Instagram</a>
-          </li>
-          <li>
-            <a href="#!" class="nav-link active">Trabaja con nosotros</a>
-          </li>
-        </ul>
-      </div>
-      <!--Grid column-->
-    </div>
-    <!--Grid row-->
-  </div>
-  <!-- Grid container -->
-
-  <!-- Copyright -->
-  <div class="text-center p-3 Copyright">
-    © 2020 Copyright:
-    <a class="text-white" href="https://mdbootstrap.com/">Agustin Alvez, Rodrigo Carbone</a>
-  </div>
-  <!-- Copyright -->
-</footer>
 <router-outlet></router-outlet>

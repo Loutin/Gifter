@@ -2,7 +2,7 @@
 
 /* Generales */
 
-body, nav{
+body{
     background-color: #181A1B;
     color: white !important;
 }
@@ -12,40 +12,7 @@ footer{
     margin-top: 60px;
 }
 
-header{
-    margin-left: 30px !important;
-}
-
 /* Espesificos */
-
-.navbar-brand {
-    color: var(--darkreader-text--bs-navbar-brand-color);
-    margin-left: 10px !important;
-}
-
-.navbar{
-    --bs-navbar-brand-hover-color: none;
-}
-
-.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
-    color: var(--darkreader-text--bs-navbar-active-color);
-}
-
-.nav-link:focus, .nav-link:hover {
-    color: var(--darkreader-text--bs-nav-link-hover-color);
-}
-
-.nav-link {
-    color: var(--darkreader-text--bs-nav-link-color);
-    text-decoration-color: initial;
-    background-image: initial;
-    background-color: initial;
-    border-color: initial;
-}
-
-#MargenLogin{
-    margin-left: 10px !important;
-}
 
 #frase1{
     color: gray;
@@ -110,26 +77,6 @@ header{
     height: 230px;
 }
 
-#LogoFooter{
-    display: flex;
-}
-
-#LogoFooter h5{
-    width: 70px; 
-    margin-left: 10px;
-}
-
-.BarraFooter{
-    display: grid;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-.Copyright{
-    text-decoration: none;
-    background-color: #181A1B;
-}
-
 @media screen and (max-width: 576px) {
     #imgEntregaRegalo{
         width: 100%;
@@ -144,15 +91,5 @@ header{
     #TituloTablaRegalos{
         justify-content: center;
         text-align: center;
-    }
-}
-
-@media screen and (max-width: 992px) {
-    #LogoFooter{
-        justify-content: center;
-    } 
-    
-    .NosotrosyContacto{
-        margin-top: 20px;
     }
 }
