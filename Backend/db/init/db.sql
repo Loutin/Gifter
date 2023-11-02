@@ -234,9 +234,9 @@ ALTER TABLE IF EXISTS public.deliveries
 
 --Users
 
-INSERT INTO public.users (name, email, password) VALUES ('Rodrigo', 'j6H5x@example.com', '123');
-INSERT INTO public.users (name, email, password) VALUES ('Agustin', 'a@b.com', '321');
-INSERT INTO public.users (name, email, password) VALUES ('Regalos Carloco', 'f@g.com', '456');
+INSERT INTO public.users (name, email, password) VALUES ('Rodrigo', 'j6H5x@example.com', '$2a$10$65ye74PkMImEWmI4a17RdO857NobFm.8Z7lPm3o3LSgHR6tSxgc8i');
+INSERT INTO public.users (name, email, password) VALUES ('Agustin', 'a@b.com', '$2a$10$i5PZL8d6qoWvvvQ4ZVNY9uxNYhpyP46A1ZD7noAsq8YYlJ/wP2bui');
+INSERT INTO public.users (name, email, password) VALUES ('Regalos Carloco', 'f@g.com', '$2a$10$5lhiASBq4habQ0nQmL1jj.r/hyL5dOp6eM5Z2rgNcAzg2LwGVEXBW');
 
 --Clients
 INSERT INTO public.clients (id, phone, description) VALUES (1, '123456789', 'una descripción');
