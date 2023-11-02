@@ -53,3 +53,8 @@ input{
     justify-content: center;
     margin-top: 40px;
 }
+
+#btnLogueo{
+    margin-left: 20%;
+    margin-top: 20px;
+}
