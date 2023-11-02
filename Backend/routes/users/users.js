@@ -14,7 +14,13 @@ export default async function (fastify, opts) {
             "schema": {
               "type": "object",
               "properties": {
-                "message": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "email": {
                   "type": "string"
                 }
               }
@@ -78,7 +84,9 @@ export default async function (fastify, opts) {
 
       reply.code(200)
       return {
-        message: "Successful login"
+        id: user.id,
+        name: user.name,
+        email: user.email
       }
 
     }
