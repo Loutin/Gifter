@@ -49,4 +49,23 @@ export class AuthService {
     return this.user?.name
   }
 
+  async doRegister(name: string, phone: string, email: string, password: string) {
+    const description = '';
+    console.log(name, phone, email, password, description)
+    const client = await fetch(`${this.baseUrl}/clients`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, phone, email, password, description })
+    }).then(res => res.json())
+
+    if (client){
+      console.log(client)
+    }
+    return
+  }
+
+  
+
 }
