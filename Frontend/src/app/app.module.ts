@@ -10,6 +10,7 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { BackPageComponent } from './back-page/back-page.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BackPageComponent } from './back-page/back-page.component';
     NosotrosComponent,
     LoginComponent,
     RegisterComponent,
-    BackPageComponent
+    BackPageComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
