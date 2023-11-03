@@ -10,16 +10,16 @@
             <div class="mb-2 row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-4">
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" id="staticEmail" [(ngModel)]="this.email">
                 </div>
             </div>
             <div class="mb-2 row" id="spaceform">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-4">
-                  <input type="password" class="form-control" id="inputPassword">
+                  <input type="password" class="form-control" id="inputPassword" [(ngModel)]="this.password">
                 </div>
             </div>
-            <a id="btnLogueo" class="btn btn-primary" href="#">Login</a>
+            <button id="btnLogueo" class="btn btn-primary" (click)="this.doLogin()">Login</button>
         </div>
         <div id="btnsContinue" class="col-md-6 mb-4 mb-md-0">
             <a class="btn btn-primary" href="#">Continuar con Google</a>
@@ -27,7 +27,7 @@
             <a class="btn btn-primary" href="#">Continuar con Apple</a>
         </div>
     </div>
-    
+
 </main>
 
 <app-footer></app-footer>

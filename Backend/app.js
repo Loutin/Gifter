@@ -2,6 +2,7 @@ import path from 'path'
 import AutoLoad from '@fastify/autoload'
 import { fileURLToPath } from 'url'
 import dotenv from "dotenv"
+import cors from '@fastify/cors'
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url)
@@ -14,6 +15,11 @@ export default async function (fastify, opts) {
   // Place here your custom code!
 
   // Do not touch the following lines
+
+  // register cors
+  fastify.register(cors, {
+    origin: 'http://localhost:4200'
+  })
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
