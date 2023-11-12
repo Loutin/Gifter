@@ -9,24 +9,7 @@ export default async function (fastify, opts) {
     response: {
       200: {
         description: 'Ok. Successful login.',
-        content: {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
+        $ref: "tokenSchema"
       },
       404: {
         "$ref": "generic404ResponseSchema"
@@ -83,11 +66,13 @@ export default async function (fastify, opts) {
       }
 
       reply.code(200)
-      return {
+      const token = fastify.jwt.sign({
         id: user.id,
         name: user.name,
         email: user.email
-      }
+      })
+
+      return reply.send({ token })
 
     }
   })

@@ -4,6 +4,7 @@ import distributorsSchemas from "./distributors/distributors.js";
 import productsSchemas from "./products/products.js";
 import ordersSchemas from "./orders/orders.js";
 import deliveriesSchemas from "./deliveries/deliveries.js";
+import usersSchemas from "./users/users.js";
 
 const generic204ResponseSchema = {
   $id: "generic204ResponseSchema",
@@ -17,14 +18,25 @@ const generic404ResponseSchema = {
   type: "null",
 }
 
+const tokenSchema = {
+  $id: "tokenSchema",
+    description: 'Token schema',
+    type: 'object',
+    properties: {
+      token: { type: 'string' },
+    },
+  required: ["token"]
+}
+
 const schemas = {
-  generic204ResponseSchema, generic404ResponseSchema,
+  generic204ResponseSchema, generic404ResponseSchema, tokenSchema,
   ...businessesSchemas,
   ...clientsSchemas,
   ...distributorsSchemas,
   ...productsSchemas,
   ...ordersSchemas,
-  ...deliveriesSchemas
+  ...deliveriesSchemas,
+  ...usersSchemas
 }
 
 export default schemas;

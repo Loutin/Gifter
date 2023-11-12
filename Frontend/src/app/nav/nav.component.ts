@@ -11,7 +11,7 @@ export class NavComponent {
   constructor(public AuthService: AuthService) { }
 
   logout() {
-    this.AuthService.doLogOut();
+    this.AuthService.doLogout();
   }
 
 }

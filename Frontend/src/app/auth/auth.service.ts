@@ -1,52 +1,100 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../../interfaces/IUser';
+import { TokenResponse, User, UserAndToken } from './interfaces/user.interface';
+import { Observable, catchError, delay, map, of, switchMap, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  private readonly USER_KEY = "user";
 
-  private readonly USER_KEY = 'user';
-  private baseUrl = "http://localhost:3000"
-  private user?: IUser = undefined;
+  private emailsList = ["unmail@unmail.com", "dosmail@dosmail.com", "tremail@tremail.com"];
 
-  private saveUserToLocalStorage(user: IUser) {
-    localStorage.setItem(this.USER_KEY, JSON.stringify(user))
-    this.user = user
+  private baseUrl = "http://localhost:3000";
+  private userAndToken?: UserAndToken = undefined;
+
+  constructor(
+  ) { }
+
+  get currentUser(): User | undefined {
+    // if (!this.user) return undefined;
+    return structuredClone(this.userAndToken?.user);
   }
 
-  async doLogin(email: string, password: string) {
-    const res = await fetch(`${this.baseUrl}/users/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    })
+  private saveUserToLocalStorage(user: UserAndToken) {
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    this.userAndToken = user;
+  }
 
-    if (!res.ok) {
-      return null
+  checkAuthentication(): Observable<boolean> {
+    if (!localStorage.getItem(this.USER_KEY)) {
+      this.userAndToken = undefined;
+      return of(false);
     }
 
-    const user = await res.json()
-    this.saveUserToLocalStorage(user)
-    return user
-  }
+    this.userAndToken = JSON.parse(localStorage.getItem(this.USER_KEY)!);
 
-  doLogOut() {
-    localStorage.removeItem(this.USER_KEY)
-    this.user = undefined
+    return new Observable<boolean>(observer => {
+      fetch(`${this.baseUrl}/auth/user`, {
+        headers: {
+          'Authorization': `Bearer ${this.userAndToken?.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(user => {
+          if (!user) {
+            this.userAndToken = undefined;
+            observer.next(false);
+          } else {
+            observer.next(true);
+          }
+          observer.complete();
+        })
+        .catch(error => {
+          observer.error(error);
+          observer.complete();
+        });
+    });
   }
 
   isAuthenticated() {
-    console.log(this.user!==undefined)
-    return this.user !== undefined
+    return this.userAndToken !== undefined;
   }
 
-  get userName() {
-    return this.user?.name
+  doLogin(email: string, password: string): Observable<User> {
+    return new Observable<User>(observer => {
+      fetch(`${this.baseUrl}/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
+        .then(res => res.json())
+        .then(async (tokenResponse: any) => {
+          console.log("token", tokenResponse.token);
+          const token = tokenResponse.token;
+          try {
+            const res = await fetch(`${this.baseUrl}/auth/user`, {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            });
+            const user = await res.json();
+            this.saveUserToLocalStorage({ user, token });
+            observer.next(user);
+            observer.complete();
+          } catch (error) {
+            observer.error(error);
+            observer.complete();
+          }
+        })
+        .catch(error => {
+          observer.error(error);
+          observer.complete();
+        })
+    });
   }
 
   async doRegister(name: string, phone: string, email: string, password: string) {
@@ -66,6 +114,22 @@ export class AuthService {
     return
   }
 
-  
+  getEmails(): string[] {
+    return this.emailsList
+  }
 
+  isValidMail(email: string): Observable<boolean> {
+    return of(!this.emailsList.includes(email)).pipe(
+      delay(1000)
+    )
+  }
+
+  get userName() {
+    return this.currentUser?.name
+  }
+
+  doLogout() {
+    localStorage.removeItem(this.USER_KEY);
+    this.userAndToken = undefined;
+  }
 }
