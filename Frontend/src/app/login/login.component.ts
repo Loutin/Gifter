@@ -14,19 +14,20 @@ export class LoginComponent {
 
   constructor(private AuthService: AuthService, private router: Router) { }
 
-  async doLogin() {
-    const user = await this.AuthService.doLogin(this.email, this.password);
+  doLogin() {
+    const user = this.AuthService.doLogin(this.email, this.password);
 
-    if(!user) {
-      console.log('Credenciales incorrectas')
-      return
-    }
+    user.subscribe(user => {
+      if(!user) {
+        console.log('Credenciales incorrectas')
+        return
+      }
 
-    console.log(user)
+      console.log(user)
 
-    // redirect to home
-    this.router.navigate(['/']);
-
+      // redirect to home
+      this.router.navigate(['/']);
+    })
   }
 
 }
