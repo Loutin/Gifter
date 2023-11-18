@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS public.products
     id SERIAL NOT NULL,
     name character varying(70) COLLATE pg_catalog."default" NOT NULL,
     type character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    image character varying COLLATE pg_catalog."default" NOT NULL,
     description character varying(250) COLLATE pg_catalog."default" NOT NULL,
     price integer NOT NULL,
     id_business integer NOT NULL,
@@ -248,7 +249,7 @@ INSERT INTO public.distributors (id, phone, availability) VALUES (2, '987654321'
 INSERT INTO public.businesses (id, address, phone) VALUES (3, 'calle falsa 123', '123456789');
 
 --Products
-INSERT INTO public.products (name, price, type, description, id_business) VALUES ('Chocolate', 150, 'food', 'una descripción', 3);
+INSERT INTO public.products (name, price, type, image, description, id_business) VALUES ('Chocolate', 150, 'food', 'https://upload.wikimedia.org/wikipedia/commons/9/95/Cadbury-Bournville.jpg', 'una descripción', 3);
 
 --favorite_businesses
 INSERT INTO public.favorite_businesses (id_business, id_client) VALUES (3, 1);

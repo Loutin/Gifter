@@ -12,6 +12,9 @@ import { RegisterComponent } from './register/register.component';
 import { BackPageComponent } from './back-page/back-page.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { CategoriaRegaloComponent } from './categoria-regalo/categoria-regalo.component';
+import { RegaloComponent } from './regalo/regalo.component';
+import { SeccionRegalosRoutingModule } from './seccion-regalos/seccion-regalos-routing.module';
 
 @NgModule({
   declarations: [
@@ -23,12 +26,15 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     RegisterComponent,
     BackPageComponent,
-    HomeComponent
+    HomeComponent,
+    CategoriaRegaloComponent,
+    RegaloComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    SeccionRegalosRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
