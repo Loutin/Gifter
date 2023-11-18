@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@fastify/view": "^8.2.0"
+  }
+}
