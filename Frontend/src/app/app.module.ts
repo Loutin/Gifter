@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { CategoriaRegaloComponent } from './categoria-regalo/categoria-regalo.component';
 import { RegaloComponent } from './regalo/regalo.component';
 import { SeccionRegalosRoutingModule } from './seccion-regalos/seccion-regalos-routing.module';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SeccionRegalosRoutingModule } from './seccion-regalos/seccion-regalos-r
     BackPageComponent,
     HomeComponent,
     CategoriaRegaloComponent,
-    RegaloComponent
+    RegaloComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

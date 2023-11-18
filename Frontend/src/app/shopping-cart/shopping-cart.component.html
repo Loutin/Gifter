@@ -1,0 +1,46 @@
+<app-nav></app-nav>
+
+<main>
+
+    <section id="CarritoVacio">
+        <h1 class="Negrita">¡Hay un carrito que llenar!</h1>
+
+        <h3 class="Negrita Subtitulos">Actualmente no hay productos en tu carrito</h3>
+        <h3>Busca entre la gran variedad de regalos que nosotros llevamos a tu puerta</h3>
+
+        <a id="Boton" class="btn btn-primary" href="/seccion-regalos">Busca regalos</a>
+
+    </section>
+
+    <div class="container" style="display: none;">
+        <h2>Mis compras(<!--"Numero Items"-->Item<span style="display: none;">s</span>)</h2>
+        <div id="CarritoCompras" class="row">
+            <div id="Compras" class="col-7">
+                <h4>Compras</h4>
+                <hr>
+                <!--Aca va el producto-->
+                <a class="btn btn-primary" href="">Eliminar</a>
+                <hr>
+                <p id="TiempoEnvio">Recibelo en tu puerta en 1 hora</p>
+            </div>
+            <div id="ResumenCarrito" class="col-4">
+                <h4>Resumen del pedido</h4>
+                <p><!--Aca va el nombre del producto o los productos--></p>
+                <hr>
+                <div>
+                    <h4>Total</h4>
+                    <h2><!--Aca va el total--></h2>
+                </div>
+                <hr>
+                <div id="FinalizarCompra">
+                    <a class="btn btn-primary" href="">Finalizar compra</a>
+                    <a class="btn btn-primary" href="/seccion-regalos">Seguir comprando</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<app-footer></app-footer>
