@@ -18,7 +18,7 @@ export default async function (fastify, opts) {
 
   // register cors
   fastify.register(cors, {
-    origin: 'http://localhost:4200'
+    origin: ['http://localhost:4200', 'http://10.4.201.21:4200', 'http://localhost'],
   })
 
   // This loads all plugins defined in plugins

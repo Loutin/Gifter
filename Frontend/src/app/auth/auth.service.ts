@@ -11,7 +11,7 @@ export class AuthService {
 
   private emailsList = ["unmail@unmail.com", "dosmail@dosmail.com", "tremail@tremail.com"];
 
-  private baseUrl = "http://localhost:3000";
+  private baseUrl = "http://10.4.201.21:3000";
   private userAndToken?: UserAndToken = undefined;
 
   constructor(

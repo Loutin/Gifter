@@ -7,7 +7,7 @@ export class RegaloService {
 
   constructor() { }
 
-  baseUrl = "http://localhost:3000"
+  baseUrl = "http://10.4.201.21:3000"
 
   async getRegalosPorCategoria(category: string) {
     const res = await fetch(`${this.baseUrl}/products/type/${category}`, {
