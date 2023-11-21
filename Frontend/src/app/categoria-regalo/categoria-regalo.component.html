@@ -3,5 +3,8 @@
     <div *ngFor="let regalo of this.regalos" class="col-auto">
       <app-regalo [regalo]="regalo"></app-regalo>
     </div>
+    <div *ngIf="this.regalos.length == 0" class="col-auto">
+      <p>No hay regalos</p>
+    </div>
   </div>
 </div>
