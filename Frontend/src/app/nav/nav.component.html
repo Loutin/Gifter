@@ -1,34 +1,34 @@
 <nav class="navbar navbar-expand-lg ">
     <header class="container-fluid">
       <img width="30" height="30" src="../assets/GifterLogo.png" alt="Logo de Gifter">
-      <a class="navbar-brand" href="#">Gifter</a>
+      <a class="navbar-brand" routerLink="/">Gifter</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/seccion-regalos">Regalos</a>
+            <a class="nav-link active" aria-current="page" routerLink="/seccion-regalos">Regalos</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Categorias
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/seccion-regalos/food">Comidas</a></li>
+              <li><a class="dropdown-item" routerLink="/seccion-regalos/food">Comidas</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/seccion-regalos/flowers">Flores</a></li>
+              <li><a class="dropdown-item" routerLink="/seccion-regalos/flowers">Flores</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/seccion-regalos/jewelry">Joyeria</a></li>
+              <li><a class="dropdown-item" routerLink="/seccion-regalos/jewelry">Joyeria</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/seccion-regalos/clothes">Ropa</a></li>
+              <li><a class="dropdown-item" routerLink="/seccion-regalos/clothes">Ropa</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/seccion-regalos/misc">Otros</a></li>
+              <li><a class="dropdown-item" routerLink="/seccion-regalos/misc">Otros</a></li>
 
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/nosotros">Nosotros</a>
+            <a class="nav-link" routerLink="/nosotros">Nosotros</a>
           </li>
         </ul>
         <form class="d-flex" role="search">
@@ -37,10 +37,10 @@
         </form>
         <ul class="navbar-nav" *ngIf="!this.AuthService.isAuthenticated()">
           <li id="MargenLogin" class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" routerLink="/login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/register">Registro</a>
+            <a class="nav-link" routerLink="/register">Registro</a>
           </li>
         </ul>
 
@@ -53,7 +53,17 @@
           </li>
         </ul>
 
-        <a id="IconoCarrito" href="/shopping-cart"><span class="icon-cart"></span></a>
+        <a class="btn btn-outline-success position-relative" routerLink="/shopping-cart">
+          <span class="icon-cart"></span>
+          <span *ngIf="!this.estaVacio()" class="position-absolute top-100 start-0 translate-middle badge rounded-pill bg-danger">
+            {{this.numRegalos()}}
+          </span>
+        </a>
+
+        <!-- <a id="IconoCarrito" routerLink="/shopping-cart"><span class="icon-cart"></span><span class="position-absolute bottom-0 start-94 translate-middle badge rounded-pill bg-danger">
+          99+
+          <span class="visually-hidden">unread messages</span>
+        </span></a> -->
 
       </div>
     </header>

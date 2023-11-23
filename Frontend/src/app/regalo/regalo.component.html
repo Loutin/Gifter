@@ -4,6 +4,9 @@
     <h5 class="card-title">{{regalo.name}}</h5>
     <h5 class="card-title">${{regalo.price}}</h5>
     <p class="card-text">{{regalo.description}}</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
+    <div class="d-flex justify-content-between">
+      <a (click)="this.comprar()" class="btn btn-primary">Comprar</a>
+      <a (click)="this.agregarAlCarrito()" class="btn btn-primary">Agregar al carrito</a>
+    </div>
   </div>
 </div>

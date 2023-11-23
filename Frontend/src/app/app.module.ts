@@ -16,6 +16,8 @@ import { CategoriaRegaloComponent } from './categoria-regalo/categoria-regalo.co
 import { RegaloComponent } from './regalo/regalo.component';
 import { SeccionRegalosRoutingModule } from './seccion-regalos/seccion-regalos-routing.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { ShoppingCartServiceService } from './shopping-cart/shopping-cart-service.service';
+import { ShoppingCartRoutingModule } from './shopping-cart/shopping-cart-routing.module';
 
 @NgModule({
   declarations: [
@@ -36,9 +38,10 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    SeccionRegalosRoutingModule
+    SeccionRegalosRoutingModule,
+    ShoppingCartRoutingModule
   ],
-  providers: [],
+  providers: [ShoppingCartServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
