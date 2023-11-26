@@ -18,6 +18,11 @@ import { SeccionRegalosRoutingModule } from './seccion-regalos/seccion-regalos-r
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ShoppingCartServiceService } from './shopping-cart/shopping-cart-service.service';
 import { ShoppingCartRoutingModule } from './shopping-cart/shopping-cart-routing.module';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { FavoriteProductsComponent } from './favorite-products/favorite-products.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
+import { ProfileMenuRoutingModule } from './profile-menu/profile-menu-routing.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,11 @@ import { ShoppingCartRoutingModule } from './shopping-cart/shopping-cart-routing
     HomeComponent,
     CategoriaRegaloComponent,
     RegaloComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    MyOrdersComponent,
+    FavoriteProductsComponent,
+    ProfileComponent,
+    ProfileMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +49,8 @@ import { ShoppingCartRoutingModule } from './shopping-cart/shopping-cart-routing
     FormsModule,
     SeccionRegalosRoutingModule,
     ShoppingCartRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ProfileMenuRoutingModule
   ],
   providers: [ShoppingCartServiceService],
   bootstrap: [AppComponent]
