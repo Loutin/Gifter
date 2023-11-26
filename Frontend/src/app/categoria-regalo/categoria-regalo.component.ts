@@ -18,13 +18,13 @@ export class CategoriaRegaloComponent implements OnInit {
   async ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.category = params.get('category')!;
-      console.log("CATEGORIA: ", this.category);
+      // console.log("CATEGORIA: ", this.category);
       this.cargarRegalos();
     });
   }
 
   async cargarRegalos() {
     this.regalos = await this.regaloService.getRegalosPorCategoria(this.category);
-    console.log(this.regalos);
+    // console.log(this.regalos);
   }
 }

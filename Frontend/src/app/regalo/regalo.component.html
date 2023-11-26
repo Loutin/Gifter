@@ -1,9 +1,20 @@
-<div class="card" style="width: 18rem;">
-  <img src="{{regalo.image}}" alt="image of {{regalo.name}}" class="card-img-top">
+<div class="card" style="width: 18rem; height: 30rem;">
+
+  <div class="card-header">
+    <img src="{{regalo.image}}" alt="image of {{regalo.name}}" class="card-img-top" width="210" height="230">
+  </div>
+
   <div class="card-body">
     <h5 class="card-title">{{regalo.name}}</h5>
     <h5 class="card-title">${{regalo.price}}</h5>
     <p class="card-text">{{regalo.description}}</p>
-    <a href="#" class="btn btn-primary">Comprar</a>
   </div>
+
+  <div class="card-footer">
+    <div class="d-flex justify-content-between">
+      <a (click)="this.comprar()" class="btn btn-primary">Comprar</a>
+      <a (click)="this.agregarAlCarrito()" class="btn btn-primary">Agregar al carrito</a>
+    </div>
+  </div>
+
 </div>

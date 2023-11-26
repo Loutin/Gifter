@@ -1,42 +1,59 @@
 <app-nav></app-nav>
 
-<main>
+<main class="container">
 
-    <section id="CarritoVacio">
+    <section *ngIf="this.estaVacio()" id="CarritoVacio">
         <h1 class="Negrita">¡Hay un carrito que llenar!</h1>
 
         <h3 class="Negrita Subtitulos">Actualmente no hay productos en tu carrito</h3>
         <h3>Busca entre la gran variedad de regalos que nosotros llevamos a tu puerta</h3>
 
-        <a id="Boton" class="btn btn-primary" href="/seccion-regalos">Busca regalos</a>
+        <a id="Boton" class="btn btn-primary" routerLink="/seccion-regalos">Busca regalos</a>
 
     </section>
 
-    <div class="container" style="display: none;">
-        <h2>Mis compras(<!--"Numero Items"-->Item<span style="display: none;">s</span>)</h2>
+    <div *ngIf="!this.estaVacio()" class="container">
+        <h2>Mis compras({{this.numRegalos()}})</h2>
         <div id="CarritoCompras" class="row">
             <div id="Compras" class="col-7">
                 <h4>Compras</h4>
-                <hr>
-                <!--Aca va el producto-->
-                <a class="btn btn-primary" href="">Eliminar</a>
-                <hr>
+                <div class="regalo d-flex justify-content-center" *ngFor="let item of this.obtenerRegalos()">
+                  <hr>
+                  <!--Aca va el producto-->
+                  <div class="card" style="width: 18rem; margin-bottom: 15px;">
+                    <img src="{{item.regalo.image}}" alt="image of {{item.regalo.name}}" class="card-img-top" width="210" height="230">
+                    <div class="card-body">
+                      <h5 class="card-title">{{item.regalo.name}}</h5>
+                      <h5 class="card-title">${{item.regalo.price}}</h5>
+                      <p class="card-text">{{item.regalo.description}}</p>
+                      <div class="d-flex justify-content-between">
+                        <a class="btn btn-primary col-6" (click)="this.eliminarDelCarrito(item.regalo)">Eliminar</a>
+                        <div class="form-outline col-3">
+
+                          <input type="number" id="quantity_{{item.regalo.id}}" class="form-control" [(ngModel)]="item.quantity" min="1"/>
+                          <!-- <label class="form-label" for="quantity_{{item.regalo.id}}">Number input</label> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                </div>
                 <p id="TiempoEnvio">Recibelo en tu puerta en 1 hora</p>
             </div>
             <div id="ResumenCarrito" class="col-4">
                 <h4>Resumen del pedido</h4>
-                <p><!--Aca va el nombre del producto o los productos--></p>
+                <p *ngFor="let item of this.obtenerRegalos()">{{item.quantity}} x {{item.regalo.name}}</p>
                 <hr>
                 <div>
                     <h4>Total</h4>
-                    <h2><!--Aca va el total--></h2>
+                    <h2>${{this.obtenerTotal()}}</h2>
                 </div>
                 <hr>
                 <div id="FinalizarCompra">
-                    <a class="btn btn-primary" href="">Finalizar compra</a>
-                    <a class="btn btn-primary" href="/seccion-regalos">Seguir comprando</a>
+                    <a class="btn btn-primary" (click)="this.finalizarCompras()">Finalizar compra</a>
+                    <a class="btn btn-primary" routerLink="/seccion-regalos">Seguir comprando</a>
                 </div>
-                
+
             </div>
         </div>
     </div>

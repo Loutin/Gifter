@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SeccionRegalosComponent } from './seccion-regalos/seccion-regalos.component';
@@ -16,6 +16,14 @@ import { CategoriaRegaloComponent } from './categoria-regalo/categoria-regalo.co
 import { RegaloComponent } from './regalo/regalo.component';
 import { SeccionRegalosRoutingModule } from './seccion-regalos/seccion-regalos-routing.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { ShoppingCartServiceService } from './shopping-cart/shopping-cart-service.service';
+import { ShoppingCartRoutingModule } from './shopping-cart/shopping-cart-routing.module';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { FavoriteProductsComponent } from './favorite-products/favorite-products.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
+import { ProfileMenuRoutingModule } from './profile-menu/profile-menu-routing.module';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,15 +38,23 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     HomeComponent,
     CategoriaRegaloComponent,
     RegaloComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    MyOrdersComponent,
+    FavoriteProductsComponent,
+    ProfileComponent,
+    ProfileMenuComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    SeccionRegalosRoutingModule
+    SeccionRegalosRoutingModule,
+    ShoppingCartRoutingModule,
+    HttpClientModule,
+    ProfileMenuRoutingModule
   ],
-  providers: [],
+  providers: [ShoppingCartServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
