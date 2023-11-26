@@ -42,7 +42,7 @@
 
         <ul class="navbar-nav" *ngIf="this.AuthService.isAuthenticated()">
           <li id="MargenLogin" class="nav-item">
-            <a class="nav-link">{{this.AuthService.userName}}</a>
+            <a class="nav-link" routerLink="/profile">{{this.AuthService.userName}}</a>
           </li>
           <li class="nav-item">
             <button class="nav-link" (click)="this.logout()">Cerrar sesión</button>

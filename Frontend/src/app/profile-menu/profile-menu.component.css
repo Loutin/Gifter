@@ -1,0 +1,33 @@
+main{
+    min-height: 82vh;
+}
+
+#tablaPerfil{
+    min-height: 80vh;
+    padding-top: 2%;
+    margin-top: 20px;
+    padding-left: 30px;
+    width: 100%;
+}
+
+#tabladelperfil{
+    justify-content: center;
+    background-color: #242729;
+    text-align: center;
+}
+
+#tabladelperfil ul a{
+    margin: 10px 0px 10px 0px;
+}
+
+#tablaPerfil li:hover{
+    cursor: pointer;
+}
+
+.listaacciones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 60vh;
+    gap: 10px;
+}

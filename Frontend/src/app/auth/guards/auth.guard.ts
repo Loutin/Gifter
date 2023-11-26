@@ -10,7 +10,7 @@ export const userIsLogged: CanMatchFn = (route: Route, segments: UrlSegment[]) =
   return authService.checkAuthentication()
     .pipe(
       tap(autenticado => {
-        if (!autenticado) router.navigate(["/auth/login"]);
+        if (!autenticado) router.navigate(["/login"]);
       })
     );
 }

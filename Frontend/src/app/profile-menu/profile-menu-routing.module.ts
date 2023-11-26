@@ -4,6 +4,8 @@ import { ProfileMenuComponent } from './profile-menu.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { MyOrdersComponent } from '../my-orders/my-orders.component';
 import { FavoriteProductsComponent } from '../favorite-products/favorite-products.component';
+import { userIsLogged } from '../auth/guards/auth.guard';
+import { OrderDetailComponent } from '../order-detail/order-detail.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileMenuComponent,
+    canActivate: [userIsLogged],
     children: [
       {
         path: 'my-profile',
@@ -21,7 +24,13 @@ const routes: Routes = [
       },
       {
         path: "orders",
-        component: MyOrdersComponent
+        component: MyOrdersComponent,
+        children: [
+          {
+            path: ":id",
+            component: OrderDetailComponent
+          }
+        ]
       },
       {
         path: "favorite-products",

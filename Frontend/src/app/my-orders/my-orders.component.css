@@ -1,0 +1,26 @@
+#ResumenCarrito{
+    background-color: rgb(71, 70, 70);
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+}
+
+.titlo{
+    text-align: center;
+}
+
+.table>:not(caption)>*>* {
+    background-color: rgb(71, 70, 70)!important;
+    color: white!important;
+}
+
+button{
+    min-width: 5vw;
+}
+
+@media screen and (max-width: 768px){
+    #ResumenCarrito{
+        display: flex;
+        flex-direction: column;
+    }
+}
