@@ -31,10 +31,6 @@
             <a class="nav-link" routerLink="/nosotros">Nosotros</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Ej. Flores" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
         <ul class="navbar-nav" *ngIf="!this.AuthService.isAuthenticated()">
           <li id="MargenLogin" class="nav-item">
             <a class="nav-link" routerLink="/login">Login</a>
@@ -46,7 +42,7 @@
 
         <ul class="navbar-nav" *ngIf="this.AuthService.isAuthenticated()">
           <li id="MargenLogin" class="nav-item">
-            <p>{{this.AuthService.userName}}</p>
+            <a class="nav-link">{{this.AuthService.userName}}</a>
           </li>
           <li class="nav-item">
             <button class="nav-link" (click)="this.logout()">Cerrar sesión</button>
