@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ShoppingCartServiceService } from './shopping-cart-service.service';
 import { Regalo } from 'src/interfaces/regalo.interface';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-shopping-cart',
@@ -9,7 +12,7 @@ import { Regalo } from 'src/interfaces/regalo.interface';
 })
 export class ShoppingCartComponent {
 
-  constructor(private shoppingCartService: ShoppingCartServiceService) { }
+  constructor(private shoppingCartService: ShoppingCartServiceService, private authService: AuthService, private router: Router) { }
 
   estaVacio(){
     return this.shoppingCartService.estaVacio()
@@ -33,6 +36,18 @@ export class ShoppingCartComponent {
 
   eliminarDelCarrito(regalo: Regalo){
     this.shoppingCartService.eliminarDelCarrito(regalo);
+  }
+
+  finalizarCompras(){
+    const user = this.authService.currentUser
+
+    if(!user){
+      this.router.navigate(['/login'])
+      return
+    };
+
+    this.shoppingCartService.realizarPedido()
+
   }
 
 }

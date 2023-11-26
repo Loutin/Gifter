@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SeccionRegalosComponent } from './seccion-regalos/seccion-regalos.component';
@@ -39,7 +39,8 @@ import { ShoppingCartRoutingModule } from './shopping-cart/shopping-cart-routing
     AppRoutingModule,
     FormsModule,
     SeccionRegalosRoutingModule,
-    ShoppingCartRoutingModule
+    ShoppingCartRoutingModule,
+    HttpClientModule
   ],
   providers: [ShoppingCartServiceService],
   bootstrap: [AppComponent]
