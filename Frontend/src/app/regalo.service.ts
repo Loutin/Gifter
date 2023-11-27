@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BASE_URL } from 'src/const/util';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ export class RegaloService {
 
   constructor() { }
 
-  baseUrl = "http://10.4.201.21:3000"
+  baseUrl = BASE_URL;
 
   async getRegalosPorCategoria(category: string) {
     const res = await fetch(`${this.baseUrl}/products/type/${category}`, {

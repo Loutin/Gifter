@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TokenResponse, User, UserAndToken } from './interfaces/user.interface';
 import { Observable, catchError, delay, map, of, switchMap, tap, throwError } from 'rxjs';
+import { BASE_URL } from 'src/const/util';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
 
   private emailsList = ["unmail@unmail.com", "dosmail@dosmail.com", "tremail@tremail.com"];
 
-  private baseUrl = "http://10.4.201.21:3000";
+  private baseUrl = BASE_URL;
   private userAndToken?: UserAndToken = undefined;
 
   constructor(

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { BASE_URL } from 'src/const/util';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class ShoppingCartServiceService {
 
   regalos: CartItem[] = [];
-  urlOrders = "http://localhost:3000/clients";
+  urlOrders = BASE_URL + "/clients";
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

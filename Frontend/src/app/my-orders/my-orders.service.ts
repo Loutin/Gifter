@@ -5,13 +5,15 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { Order } from 'src/interfaces/Order.interface';
+import { BASE_URL } from 'src/const/util';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MyOrdersService{
 
-  baseUrlOrders = "http://localhost:3000/clients";
+  baseUrlOrders = BASE_URL + "/clients";
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
