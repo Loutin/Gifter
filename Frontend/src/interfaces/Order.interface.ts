@@ -9,5 +9,6 @@ export interface Order {
   "id_client": number,
   "description": string,
   "id_business": number,
-  "details": OrderDetail[]
+  "details": OrderDetail[],
+  "state"?: string
 }

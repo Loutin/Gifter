@@ -1,18 +1,16 @@
-<app-nav></app-nav>
 
 <main>
-    <div id="CarritoCompras" class="row">ç
-        <div id="ResumenCarrito" class="col-4">
+    <div id="CarritoCompras" class="row">
+        <div id="ResumenCarrito" class="col">
+            <button class="btn btn-primary" routerLink="..">Volver</button>
             <h4>Resumen del pedido</h4>
-            <p >1 x chocolate</p>
+            <p *ngFor="let detail of this.details" >{{detail.quantity}}x{{detail.regalo.name}}</p>
             <hr>
             <div>
                 <h4>Total</h4>
-                <h2>$10</h2>
+                <h2>${{this.getTotal()}}</h2>
             </div>
             <hr>
         </div>
     </div>
 </main>
-
-<app-footer></app-footer>
