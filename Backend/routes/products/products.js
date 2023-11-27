@@ -76,4 +76,41 @@ export default async function (fastify, opts) {
       return products
     }
   })
+
+  const getProductRouteSchema = {
+    summary: "Get a product",
+    tags: ["products"],
+    response: {
+      200: {
+        description: "OK. Returns a product.",
+        content: {
+          "application/json": {
+            schema: {
+              "$ref": "productResponseSchema"
+            }
+          }
+        }
+      },
+      404: {
+        "$ref": "generic404ResponseSchema"
+      }
+    }
+  }
+
+  fastify.get('/:id', {
+    schema: getProductRouteSchema,
+    handler: async (request, reply) => {
+      const id = request.params.id
+      const product = (await pool.query("SELECT * FROM products WHERE id = $1", [id])).rows
+      console.log(`product: ${JSON.stringify(product)}`)
+
+      /* c8 ignore start */
+      if (product.length === 0) {
+        reply.code(404)
+      }
+      /* c8 ignore stop */
+
+      return product[0]
+    }
+  })
 }

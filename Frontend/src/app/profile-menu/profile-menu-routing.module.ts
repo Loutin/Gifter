@@ -24,13 +24,11 @@ const routes: Routes = [
       },
       {
         path: "orders",
-        component: MyOrdersComponent,
-        children: [
-          {
-            path: ":id",
-            component: OrderDetailComponent
-          }
-        ]
+        component: MyOrdersComponent
+      },
+      {
+        path: "orders/:id",
+        component: OrderDetailComponent
       },
       {
         path: "favorite-products",

@@ -11,13 +11,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>2000-01-01</td>
-                <td>Prueba</td>
-                <td>Probando</td>
+            <tr *ngFor="let order of this.orders">
+                <td>{{order.id}}</td>
+                <td>{{order.date}}</td>
+                <td>{{order.description}}</td>
+                <td>{{order.state}}</td>
                 <td>
-                    <button class="btn btn-primary" routerLink="1">Ver</button>
+                    <button class="btn btn-primary" routerLink="{{order.id}}">Ver</button>
                 </td>
             </tr>
         </tbody>
