@@ -1,0 +1,22 @@
+<app-nav></app-nav>
+
+<main>
+    <div id="tablaPerfil" class="row">
+        <div id="tabladelperfil" class="col-sm-3 col-md-3 mb-4 mb-md-0 col-lg-3 col-xl-3 ">
+            <hr>
+            <h4>{{this.user?.name}}</h4>
+            <hr>
+
+        <ul class="list-group listaacciones">
+            <a class="list-group-item" routerLink="orders">Mis Pedidos</a>
+            <a class="list-group-item" routerLink="favorite-products">Mis Favoritos</a>
+            <a class="list-group-item" routerLink="my-profile">Mi Cuenta</a>
+        </ul>
+        </div>
+        <div class="col-sm-7 col-md-7 mb-2 mb-md-0 col-lg-6 col-xl-6">
+            <router-outlet></router-outlet>
+        </div>
+      </div>
+</main>
+
+<app-footer></app-footer>

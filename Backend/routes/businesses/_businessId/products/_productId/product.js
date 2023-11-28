@@ -54,7 +54,7 @@ export default async function (fastify, opts) {
   fastify.put('/', {
     schema: putRouteSchema,
     handler: async function (request, reply) {
-      const { id, name, type, description, price, id_business } = request.body
+      const { id, name, type, image, description, price, id_business } = request.body
       const productId = request.params.productId
       const businessId = request.params.businessId
 
@@ -63,7 +63,7 @@ export default async function (fastify, opts) {
         return
       }
 
-      (await pool.query("UPDATE products SET name = $1, type = $2, description = $3, price = $4, id_business = $5 WHERE id = $6", [name, type, description, price, id_business, productId])).rows[0]
+      (await pool.query("UPDATE products SET name = $1, type = $2, image = $3, description = $4, price = $5, id_business = $6 WHERE id = $7", [name, type, image, description, price, id_business, productId])).rows[0]
 
       reply.code(204)
       return

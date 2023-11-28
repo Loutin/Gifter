@@ -2,14 +2,14 @@
 
 <main>
     <div id="categorias" class="container-fluid">
-        <a class="btn btn-primary" href="#">Comida</a>
-        <a class="btn btn-primary" href="#">Flores</a>
-        <a class="btn btn-primary" href="#">Joyeria</a>
-        <a class="btn btn-primary" href="#">Ropa</a>
-        <a class="btn btn-primary" href="#">Miselaneos</a>
+        <a class="btn btn-primary" [routerLink]="['/seccion-regalos/food']">Comida</a>
+        <a class="btn btn-primary" [routerLink]="['/seccion-regalos/flowers']">Flores</a>
+        <a class="btn btn-primary" [routerLink]="['/seccion-regalos/jewelry']">Joyeria</a>
+        <a class="btn btn-primary" [routerLink]="['/seccion-regalos/clothes']">Ropa</a>
+        <a class="btn btn-primary" [routerLink]="['/seccion-regalos/misc']">Miselaneos</a>
     </div>
     <div>
-        <!-- Aqui van los futuros regalos que se agreguen desde el lado de la empresa -->
+        <router-outlet></router-outlet>
     </div>
 </main>
 

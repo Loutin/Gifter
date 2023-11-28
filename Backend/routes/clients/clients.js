@@ -1,4 +1,5 @@
 import pool from "../../db/db.js"
+import bcrypt from "bcryptjs"
 
 export default async function (fastify, opts) {
 
@@ -25,7 +26,13 @@ export default async function (fastify, opts) {
     handler: async function (request, reply) {
       const { name, email, password, phone, description } = request.body
 
-      const user = (await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [name, email, password])).rows[0]
+      console.log("REQUEST BODY:")
+      console.log(name, email, password, phone, description)
+
+      const hashedPassword = await bcrypt.hash(password, 10)
+      console.log("Type of HashedPassword is: " + typeof hashedPassword)
+
+      const user = (await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [name, email, hashedPassword])).rows[0]
       const client = (await pool.query("INSERT INTO clients (id, phone, description) VALUES ($1, $2, $3) RETURNING *", [user.id, phone, description])).rows[0]
 
       reply.code(201)

@@ -4,6 +4,7 @@ const productPostSchema = {
   "properties": {
     "name": { "type": 'string' },
     "type": { "type": 'string' },
+    "image": { "type": 'string' },
     "description": { "type": 'string' },
     "price": { "type": 'number' },
     "id_business": { "type": 'number' },
@@ -18,6 +19,7 @@ const productResponseSchema = {
     "id": { "type": "integer" },
     "name": { "type": 'string' },
     "type": { "type": 'string' },
+    "image": { "type": 'string' },
     "description": { "type": 'string' },
     "price": { "type": 'number' },
     "id_business": { "type": 'number' },

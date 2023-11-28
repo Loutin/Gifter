@@ -1,4 +1,10 @@
-/* Tags generales */
+
+
+#IconoCarrito{
+    margin-left: 10px;
+    color: aliceblue;
+    text-decoration: none;
+}
 
 nav{
     background-color: #181A1B;
@@ -39,9 +45,10 @@ header{
     margin-left: 10px !important;
 }
 
+
 @media screen and (max-width: 992px) {
     #MargenLogin{
         margin-left: 0px !important;
     }
-    
+
 }

@@ -24,7 +24,7 @@ export default async function (fastify, opts) {
   fastify.post("/", {
     schema: postRouteSchema,
     handler: async function (request, reply) {
-      const { name, type, description, price, id_business } = request.body
+      const { name, type, image, description, price, id_business } = request.body
 
       const businessId = request.params.businessId
 
@@ -33,7 +33,7 @@ export default async function (fastify, opts) {
         return
       }
 
-      const product = (await pool.query("INSERT INTO products (name, type, description, price, id_business) VALUES ($1, $2, $3, $4, $5) RETURNING *", [name, type, description, price, id_business])).rows[0]
+      const product = (await pool.query("INSERT INTO products (name, type, image, description, price, id_business) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [name, type, image, description, price, id_business])).rows[0]
 
       reply.code(201)
       return product

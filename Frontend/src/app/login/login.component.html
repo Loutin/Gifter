@@ -1,26 +1,33 @@
+<app-back-page></app-back-page>
 
 <main class="row">
     <figure class="col">
         <img id="imgLogin" src="../../assets/ImagenLoginRegister.png" alt="Hombre sosteniendo un regalo">
     </figure>
     <div class="col">
-        <h3>Ingresa para continuar</h3>
+        <h3 class="col-md-6 mb-4 mb-md-0">Ingresa para continuar</h3>
         <div id="Formulariogap">
             <div class="mb-2 row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-4">
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" id="staticEmail" [(ngModel)]="this.email">
                 </div>
             </div>
-            <div class="mb-2 row">
+            <div class="mb-2 row" id="spaceform">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-4">
-                  <input type="password" class="form-control" id="inputPassword">
+                  <input type="password" class="form-control" id="inputPassword" [(ngModel)]="this.password">
                 </div>
             </div>
+            <button id="btnLogueo" class="btn btn-primary" (click)="this.doLogin()">Login</button>
+        </div>
+        <div id="btnsContinue" class="col-md-6 mb-4 mb-md-0">
+            <a class="btn btn-primary" href="#">Continuar con Google</a>
+            <a class="btn btn-primary" href="#">Continuar con Facebook</a>
+            <a class="btn btn-primary" href="#">Continuar con Apple</a>
         </div>
     </div>
-    
+
 </main>
 
 <app-footer></app-footer>
